@@ -907,6 +907,81 @@ h1 {
     background: rgba(255, 255, 255, 0.1);
 }
 
+/* アイコングリッドのスタイル */
+.icon-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem; /* 1.5remから1remに変更 */
+    overflow-y: auto; /* 縦スクロールを有効に */
+    max-height: calc(80vh - 100px); /* ヘッダー分を引いた高さ */
+    padding: 0.2rem; /* パディングを追加 */
+}
+
+/* スクロールバーのスタイル */
+.icon-grid::-webkit-scrollbar {
+    width: 5px;
+}
+
+.icon-grid::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.icon-grid::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+}
+
+.icon-category-header {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 0.2rem;
+}
+
+.icon-grid-container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.1rem;
+}
+
+.icon-item {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.icon-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.icon-item.selected {
+    background: rgba(99, 102, 241, 0.3);
+    border-color: rgba(99, 102, 241, 0.5);
+}
+
+.icon-item svg {
+    width: 22px;
+    height: 22px;
+}
+
+/* アイコンモーダルのサイズ調整 */
+.icon-selector-modal {
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh; /* 画面の高さの80%に制限 */
+    overflow: hidden; /* オーバーフローを隠す */
+    display: flex;
+    flex-direction: column;
+}
+
 .form-group {
     margin-bottom: 1.5rem;
 }
@@ -1643,6 +1718,52 @@ h1 {
     font-size: 0.9rem;
 }
 
+/* エクスポートモーダルスタイル */
+.export-tabs {
+    display: flex;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 1.5rem;
+}
+
+.export-tab {
+    padding: 0.8rem 1.2rem;
+    background: transparent;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s;
+}
+
+.export-tab.active {
+    color: var(--text-color);
+}
+
+.export-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--primary);
+}
+
+.export-content {
+    display: none;
+}
+
+.export-content.active {
+    display: block;
+}
+
+.export-instructions {
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
 /* データ転送ボタン */
 .data-transfer-buttons {
     position: fixed;
@@ -1833,6 +1954,16 @@ h1 {
         max-height: 90vh;
         margin: 0;
         overflow-y: auto;
+    }
+
+    /* アイコングリッドのレスポンシブ対応 */
+    .icon-grid-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .icon-item {
+        width: 45px;
+        height: 45px;
     }
     
     /* フォーム要素の修正 */
@@ -2632,6 +2763,65 @@ h1 {
         </svg>
     </button>
 
+<!-- エクスポートモーダル -->
+<div id="exportModal" class="modal-overlay">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title">
+                <div class="modal-title-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                </div>
+                <span>データのエクスポート</span>
+            </div>
+            <button id="closeExportBtn" class="modal-close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="export-tabs">
+            <button class="export-tab active" data-tab="json">JSON形式</button>
+            <button class="export-tab" data-tab="csv">CSV形式</button>
+        </div>
+        
+        <div class="export-content active" id="jsonExport">
+            <p class="export-instructions">
+                すべてのデータ（リンク、カテゴリー、グループ、設定）をJSON形式でエクスポートします。<br>
+                このファイルは後でインポートすることで、完全な状態を復元できます。
+            </p>
+            <button id="exportJsonBtn" class="btn btn-primary btn-block">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                JSONをダウンロード
+            </button>
+        </div>
+        
+        <div class="export-content" id="csvExport">
+            <p class="export-instructions">
+                リンクデータのみをCSV形式でエクスポートします。<br>
+                Excel等の表計算ソフトで編集可能です。<br>
+                フォーマット: タイトル,URL,説明,カテゴリー
+            </p>
+            <button id="exportCsvBtn" class="btn btn-primary btn-block">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                CSVをダウンロード
+            </button>
+        </div>
+    </div>
+</div>
+
     <!-- リセット確認モーダル -->
     <div id="resetModal" class="modal-overlay">
         <div class="modal">
@@ -2778,6 +2968,13 @@ const linkGroup = document.getElementById('linkGroup');
 const modalTitle = document.getElementById('modalTitle');
 const submitBtnText = document.getElementById('submitBtnText');
 const linkId = document.getElementById('linkId');
+// エクスポートモーダル関連
+const exportModal = document.getElementById('exportModal');
+const closeExportBtn = document.getElementById('closeExportBtn');
+const exportTabs = document.querySelectorAll('.export-tab');
+const exportContents = document.querySelectorAll('.export-content');
+const exportJsonBtn = document.getElementById('exportJsonBtn');
+const exportCsvBtn = document.getElementById('exportCsvBtn');
 
 // テーマ設定モーダル
 const themeSettingsModal = document.getElementById('themeSettingsModal');
@@ -4719,6 +4916,99 @@ function importData(jsonData, merge = true) {
     }
 }
 
+// エクスポートモーダルを開く
+function openExportModal() {
+    exportModal.classList.add('active');
+}
+
+// エクスポートモーダルを閉じる
+function closeExportModal() {
+    exportModal.classList.remove('active');
+}
+
+// CSVエクスポート関数
+function exportToCSV() {
+    const links = getLinks();
+    let csvContent = '\uFEFF'; // BOM for UTF-8
+    
+    // ヘッダー行
+    csvContent += 'タイトル,URL,説明,カテゴリー\n';
+    
+    // データ行
+    links.forEach(link => {
+        // 各フィールドをエスケープ処理
+        const title = escapeCSV(link.title);
+        const url = escapeCSV(link.url);
+        const description = escapeCSV(link.description || '');
+        const category = escapeCSV(link.category || '');
+        
+        csvContent += `${title},${url},${description},${category}\n`;
+    });
+    
+    // ファイルをダウンロード
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    
+    // 現在の日時を含めたファイル名を生成
+    const date = new Date();
+    const dateStr = date.toISOString().replace(/:/g, '-').split('.')[0];
+    a.download = `portal-links-${dateStr}.csv`;
+    
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    showToast('リンクデータをCSV形式でエクスポートしました');
+}
+
+// CSVのエスケープ処理
+function escapeCSV(str) {
+    if (str === null || str === undefined) {
+        return '';
+    }
+    
+    // 文字列に改行、カンマ、ダブルクォートが含まれる場合はダブルクォートで囲む
+    if (str.includes(',') || str.includes('\n') || str.includes('"')) {
+        // ダブルクォートは二重にエスケープ
+        str = str.replace(/"/g, '""');
+        return `"${str}"`;
+    }
+    
+    return str;
+}
+
+// JSONエクスポート関数（既存のexportData関数と同じ）
+function exportToJSON() {
+    try {
+        const data = getAllLocalStorageData();
+        const jsonData = JSON.stringify(data, null, 2);
+        
+        // データをファイルとしてダウンロード
+        const blob = new Blob([jsonData], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        
+        // 現在の日時を含めたファイル名を生成
+        const date = new Date();
+        const dateStr = date.toISOString().replace(/:/g, '-').split('.')[0];
+        a.download = `portal-backup-${dateStr}.json`;
+        
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
+        showToast('すべてのデータをJSON形式でエクスポートしました');
+    } catch (e) {
+        console.error('Export error:', e);
+        showToast('エクスポート中にエラーが発生しました');
+    }
+}
+
 // 時計とカレンダーの機能
 function initClockAndCalendar() {
     // 曜日の配列（日本語）
@@ -5266,6 +5556,9 @@ document.addEventListener('keydown', (e) => {
         if (isEditMode) {
             toggleEditMode();
         }
+        if (exportModal.classList.contains('active')) {
+            closeExportModal();
+        }
     }
 });
 
@@ -5313,10 +5606,48 @@ confirmResetBtn.addEventListener('click', () => {
 });
 
 // データエクスポート/インポート関連
-exportDataBtn.addEventListener('click', exportData);
+exportDataBtn.addEventListener('click', openExportModal);
 
 importDataBtn.addEventListener('click', () => {
     openBulkImportModal();
+});
+
+// エクスポートモーダルのイベントリスナー
+closeExportBtn.addEventListener('click', closeExportModal);
+exportModal.addEventListener('click', (e) => {
+    if (e.target === exportModal) {
+        closeExportModal();
+    }
+});
+
+// エクスポートタブの切り替え
+exportTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+        
+        // タブの切り替え
+        exportTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        // コンテンツの切り替え
+        exportContents.forEach(content => {
+            content.classList.remove('active');
+            if (content.id === `${target}Export`) {
+                content.classList.add('active');
+            }
+        });
+    });
+});
+
+// エクスポートボタンのイベントリスナー
+exportJsonBtn.addEventListener('click', () => {
+    exportToJSON();
+    closeExportModal();
+});
+
+exportCsvBtn.addEventListener('click', () => {
+    exportToCSV();
+    closeExportModal();
 });
 
 // タッチデバイスの検出
