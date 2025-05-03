@@ -1880,6 +1880,55 @@ h1 {
     .btn-text {
         display: none;
     }
+
+    /* ヘッダー関連の要素を固定 */
+    .theme-toggle,
+    .theme-settings-btn {
+        position: fixed !important;
+        top: 10px !important;
+        z-index: 1001;
+    }
+    
+    .theme-toggle {
+        right: 10px !important;
+    }
+    
+    .theme-settings-btn {
+        right: 56px !important;
+    }
+    
+    /* 時計の位置とサイズを調整 */
+    .clock-container {
+        position: fixed !important;
+        top: 10px !important;
+        left: 10px !important;
+        z-index: 1001;
+    }
+    
+    .current-time {
+        padding: 0.3rem 0.6rem;  /* 上下のパディングを小さく */
+        font-size: 0.85rem;      /* フォントサイズを少し小さく */
+    }
+    
+    .date-time-container {
+        line-height: 1.1;        /* 行間を詰める */
+    }
+    
+    .date-display {
+        font-size: 0.75rem;      /* 日付表示を小さく */
+    }
+    
+    .time-display {
+        font-size: 0.85rem;      /* 時刻表示も少し小さく */
+    }
+    
+    /* アイコンのサイズも調整 */
+    .current-time svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
 }
 
 /* 横向き対応 */
