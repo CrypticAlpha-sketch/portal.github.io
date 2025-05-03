@@ -18,6 +18,12 @@
     --success: #10b981;
     --blur-strength: 10px;
     --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --bg-gradient-1: #6b46b3;
+    --bg-gradient-2: #9959c8;
+    --bg-gradient-3: #a76ec8;
+    --card-opacity: 0.1;
+    --animation-speed: 15s;
+    --font-size: medium;
 }
 
 [data-theme="dark"] {
@@ -38,6 +44,19 @@ body {
     min-height: 100vh;
     overflow: hidden;
     color: var(--text-color);
+    font-size: var(--font-size);
+}
+
+body.font-small {
+    font-size: 0.9rem;
+}
+
+body.font-medium {
+    font-size: 1rem;
+}
+
+body.font-large {
+    font-size: 1.2rem;
 }
 
 /* グラデーション背景とアニメーション */
@@ -49,9 +68,9 @@ body {
     height: 100%;
     z-index: -2;
     /* スクリーンショットの雰囲気に合わせた紫系グラデーション */
-    background: linear-gradient(43deg, #6b46b3 0%, #9959c8 46%, #a76ec8 100%);
+    background: linear-gradient(43deg, var(--bg-gradient-1) 0%, var(--bg-gradient-2) 46%, var(--bg-gradient-3) 100%);
     background-size: 300% 300%;
-    animation: gradient-shift 15s ease infinite;
+    animation: gradient-shift var(--animation-speed) ease infinite;
 }
 
 [data-theme="dark"] .background {
@@ -83,7 +102,7 @@ body {
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.18);
-    animation: float 25s linear infinite;
+    animation: float var(--animation-speed) linear infinite;
     bottom: -150px;
     border-radius: 50%;
 }
@@ -93,7 +112,7 @@ body {
     width: 80px;
     height: 80px;
     animation-delay: 0s;
-    animation-duration: 15s;
+    animation-duration: calc(var(--animation-speed) * 1);
 }
 
 .circles li:nth-child(2) {
@@ -101,7 +120,7 @@ body {
     width: 20px;
     height: 20px;
     animation-delay: 2s;
-    animation-duration: 12s;
+    animation-duration: calc(var(--animation-speed) * 0.8);
 }
 
 .circles li:nth-child(3) {
@@ -109,7 +128,7 @@ body {
     width: 30px;
     height: 30px;
     animation-delay: 4s;
-    animation-duration: 18s;
+    animation-duration: calc(var(--animation-speed) * 1.2);
 }
 
 .circles li:nth-child(4) {
@@ -117,7 +136,7 @@ body {
     width: 60px;
     height: 60px;
     animation-delay: 0s;
-    animation-duration: 20s;
+    animation-duration: calc(var(--animation-speed) * 1.33);
 }
 
 .circles li:nth-child(5) {
@@ -125,7 +144,7 @@ body {
     width: 20px;
     height: 20px;
     animation-delay: 0s;
-    animation-duration: 15s;
+    animation-duration: calc(var(--animation-speed) * 1);
 }
 
 .circles li:nth-child(6) {
@@ -133,7 +152,7 @@ body {
     width: 110px;
     height: 110px;
     animation-delay: 3s;
-    animation-duration: 25s;
+    animation-duration: calc(var(--animation-speed) * 1.67);
 }
 
 .circles li:nth-child(7) {
@@ -141,7 +160,7 @@ body {
     width: 150px;
     height: 150px;
     animation-delay: 7s;
-    animation-duration: 30s;
+    animation-duration: calc(var(--animation-speed) * 2);
 }
 
 .circles li:nth-child(8) {
@@ -149,7 +168,7 @@ body {
     width: 25px;
     height: 25px;
     animation-delay: 15s;
-    animation-duration: 22s;
+    animation-duration: calc(var(--animation-speed) * 1.47);
 }
 
 .circles li:nth-child(9) {
@@ -157,7 +176,7 @@ body {
     width: 15px;
     height: 15px;
     animation-delay: 2s;
-    animation-duration: 16s;
+    animation-duration: calc(var(--animation-speed) * 1.07);
 }
 
 .circles li:nth-child(10) {
@@ -165,7 +184,7 @@ body {
     width: 150px;
     height: 150px;
     animation-delay: 0s;
-    animation-duration: 28s;
+    animation-duration: calc(var(--animation-speed) * 1.87);
 }
 
 @keyframes float {
@@ -233,8 +252,10 @@ h1 {
     top: 20px;
     right: 20px;
     z-index: 10;
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    /* ライトモード時のスタイル */
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    color: rgba(0, 0, 0, 0.8);
     border-radius: 50%;
     width: 40px;
     height: 40px;
@@ -247,7 +268,37 @@ h1 {
     transition: var(--transition);
 }
 
-.theme-toggle:hover {
+/* テーマ設定ボタン */
+.theme-settings-btn {
+    position: absolute;
+    top: 20px;
+    right: 70px;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    color: rgba(0, 0, 0, 0.8);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(var(--blur-strength));
+    -webkit-backdrop-filter: blur(var(--blur-strength));
+    transition: var(--transition);
+}
+
+/* ダークモード時のスタイル追加 */
+[data-theme="dark"] .theme-toggle,
+[data-theme="dark"] .theme-settings-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.theme-toggle:hover,
+.theme-settings-btn:hover {
     transform: rotate(30deg);
 }
 
@@ -369,6 +420,71 @@ h1 {
     transform: translateY(-2px);
 }
 
+/* グループフィルター */
+.group-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.group-dropdown-container {
+    position: relative;
+    flex: 1;
+}
+
+.group-filter {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    padding-right: 2.5rem;
+    backdrop-filter: blur(var(--blur-strength));
+    -webkit-backdrop-filter: blur(var(--blur-strength));
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 50px;
+    box-shadow: var(--glass-shadow);
+    color: var(--text-color);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.group-filter:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+}
+
+.select-arrow {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-light);
+    pointer-events: none;
+}
+
+.manage-groups-btn {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(var(--blur-strength));
+    -webkit-backdrop-filter: blur(var(--blur-strength));
+    transition: var(--transition);
+}
+
+.manage-groups-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
 /* リンクグリッド */
 .links-grid {
     display: grid;
@@ -438,6 +554,22 @@ h1 {
 
 .link-card:hover::before {
     opacity: 1;
+}
+
+/* グループ表示バッジ */
+.group-badge {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    z-index: 1;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 /* 編集モード用スタイル */
@@ -825,6 +957,37 @@ h1 {
     color: white;
 }
 
+/* カラーピッカー */
+.color-picker {
+    width: 40px;
+    height: 40px;
+    padding: 2px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    background: transparent;
+}
+
+.add-group-input {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.add-group-input .form-input {
+    flex: 1;
+}
+
+.inline-select {
+    width: auto;
+    margin-left: 0.5rem;
+    padding: 0.3rem 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    color: var(--text-color);
+}
+
 .btn {
     padding: 0.8rem 1.5rem;
     background: rgba(99, 102, 241, 0.3);
@@ -854,6 +1017,30 @@ h1 {
 .btn-small {
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-primary {
+    background: rgba(99, 102, 241, 0.3);
+    border: 1px solid rgba(99, 102, 241, 0.5);
+}
+
+.btn-danger {
+    background: rgba(239, 68, 68, 0.3);
+    border: 1px solid rgba(239, 68, 68, 0.5);
+}
+
+.btn-danger:hover {
+    background: rgba(239, 68, 68, 0.4);
+}
+
+.btn-cancel {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 /* カテゴリー管理 */
@@ -900,6 +1087,46 @@ h1 {
 }
 
 .add-category-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* グループ管理 */
+.group-list {
+    margin-bottom: 1.5rem;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    transition: var(--transition);
+}
+
+.group-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.group-name {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.group-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.group-actions {
     display: flex;
     gap: 0.5rem;
 }
@@ -1200,192 +1427,229 @@ h1 {
   color: rgba(239, 68, 68, 0.8);
 }
 
-/* モバイル対応 */
-@media (max-width: 768px) {
-    .category-filters {
-        overflow-x: auto;
-        justify-content: flex-start;
-        padding-bottom: 0.5rem;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-    }
-    
-    .category-filters::-webkit-scrollbar {
-        display: none;
-    }
-    
-    .links-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    h1 {
-        font-size: 1.8rem;
-    }
-    
-    .modal {
-        width: 95%;
-        padding: 1.5rem;
-    }
-    
-    .floating-btn {
-        width: 50px;
-        height: 50px;
-    }
-    
-    .header-content {
-        padding: 0.6rem 1.5rem;
-    }
-    
-    .edit-mode-btn {
-        bottom: 6rem;
-        left: 1rem;
-        width: 50px;
-        height: 50px;
-    }
+/* テーマ設定スタイル */
+.theme-settings-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
-/* アイコン選択モーダル用スタイル */
-.icon-category-header {
-    margin-top: 15px;
-    margin-bottom: 5px;
-    font-weight: 500;
-    font-size: 0.9rem;
-    color: var(--text-light);
-    padding-left: 5px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+.theme-mode-toggle {
+    display: flex;
+    gap: 0.5rem;
 }
 
-.icon-grid-container {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
-    margin-bottom: 10px;
-}
-
-.icon-item {
+.theme-mode-btn {
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.icon-item:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: scale(1.1);
-}
-
-.icon-item.selected {
-    background: rgba(99, 102, 241, 0.3);
-    border: 2px solid rgba(99, 102, 241, 0.5);
-}
-
-/* カテゴリー位置操作ボタン */
-.category-position-controls {
-    display: flex;
-    gap: 0.25rem;
-    margin-right: 0.5rem;
-}
-
-.category-item .position-btn {
-    width: 24px;
-    height: 24px;
+    gap: 0.5rem;
+    padding: 0.5rem;
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
+    border-radius: 8px;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.theme-mode-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.theme-mode-btn.active {
+    background: rgba(99, 102, 241, 0.3);
+    border-color: rgba(99, 102, 241, 0.5);
+}
+
+.theme-colors {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.color-option {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.color-option label {
+    font-size: 0.85rem;
+}
+
+.theme-effects {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.effect-option {
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 1rem;
+}
+
+.effect-option label {
+    flex: 1;
+    font-size: 0.85rem;
+}
+
+.effect-option span {
+    width: 40px;
+    text-align: right;
+    font-size: 0.85rem;
+}
+
+.range-slider {
+    flex: 2;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    outline: none;
+}
+
+.range-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--primary);
     cursor: pointer;
-    transition: all 0.2s ease;
 }
 
-.category-item .position-btn:hover {
-    background: rgba(99, 102, 241, 0.2);
-    border-color: rgba(99, 102, 241, 0.3);
+.range-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--primary);
+    cursor: pointer;
+    border: none;
 }
 
-.category-item .move-category-up-btn:hover {
+.theme-presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.preset-btn {
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.preset-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
     transform: translateY(-2px);
 }
 
-.category-item .move-category-down-btn:hover {
-    transform: translateY(2px);
-}
-
-/* モーダルのスタイル調整 */
-.icon-selector-modal {
-    max-width: 400px;
-    max-height: 80vh;
-    overflow-y: auto;
-}
-/* リセットボタン */
-.reset-data-btn {
-    position: fixed;
-    bottom: 2rem;
-    left: 6rem; /* editModeBtn の横に配置 */
-    background: rgba(239, 68, 68, 0.2);
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    color: white;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 100;
-    transition: var(--transition);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.reset-data-btn:hover {
-    transform: scale(1.1);
-    background: rgba(239, 68, 68, 0.3);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-}
-
-/* リセット確認モーダル */
-.reset-modal-actions {
+.modal-actions {
     display: flex;
     justify-content: flex-end;
     gap: 1rem;
-    margin-top: 1.5rem;
+    margin-top: 1rem;
 }
 
-.btn-cancel {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+/* 一括インポートスタイル */
+.import-tabs {
+    display: flex;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 1.5rem;
 }
 
-.btn-danger {
-    background: rgba(239, 68, 68, 0.3);
-    border: 1px solid rgba(239, 68, 68, 0.5);
+.import-tab {
+    padding: 0.8rem 1.2rem;
+    background: transparent;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s;
 }
 
-.btn-danger:hover {
-    background: rgba(239, 68, 68, 0.4);
+.import-tab.active {
+    color: var(--text-color);
 }
 
-@media (max-width: 768px) {
-    .reset-data-btn {
-        bottom: 6rem;
-        left: 5.5rem;
-        width: 36px;
-        height: 36px;
-    }
+.import-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--primary);
 }
+
+.import-content {
+    display: none;
+}
+
+.import-content.active {
+    display: block;
+}
+
+.import-instructions {
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.file-input {
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+    padding: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.file-input:hover {
+    border-color: rgba(99, 102, 241, 0.5);
+    background: rgba(99, 102, 241, 0.1);
+}
+
+.preview-container {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    max-height: 150px;
+    overflow-y: auto;
+    font-family: monospace;
+    font-size: 0.85rem;
+    white-space: pre-wrap;
+}
+
+.import-options {
+    margin: 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.import-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
 /* データ転送ボタン */
 .data-transfer-buttons {
     position: fixed;
     bottom: 2rem; /* 下部に固定 */
     right: 8rem; /* 右から8rem（+ボタンの左側に配置） */
     display: flex;
-    flex-direction: row; /* 縦並びから横並びに変更 */
+    flex-direction: row; /* 横並び */
     gap: 0.5rem;
     z-index: 100;
 }
@@ -1429,39 +1693,92 @@ h1 {
     background: rgba(79, 70, 229, 0.3);
 }
 
-/* インポートモーダル */
-.import-instructions {
-    margin-bottom: 1rem;
+.bulk-import-btn {
+    background: rgba(245, 158, 11, 0.2); /* オレンジ色 */
+    border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
-.import-options {
-    margin: 1rem 0;
+.bulk-import-btn:hover {
+    background: rgba(245, 158, 11, 0.3);
 }
 
-.import-option {
+/* リセットボタン */
+.reset-data-btn {
+    position: fixed;
+    bottom: 2rem;
+    left: 6rem; /* editModeBtn の横に配置 */
+    background: rgba(239, 68, 68, 0.2);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    justify-content: center;
     cursor: pointer;
+    z-index: 100;
+    transition: var(--transition);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.import-modal-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-}
-
-.btn-primary {
-    background: rgba(79, 70, 229, 0.3);
-    border: 1px solid rgba(79, 70, 229, 0.5);
-}
-
-.btn-primary:hover {
-    background: rgba(79, 70, 229, 0.4);
+.reset-data-btn:hover {
+    transform: scale(1.1);
+    background: rgba(239, 68, 68, 0.3);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
+    .category-filters {
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding-bottom: 0.5rem;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    
+    .category-filters::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .links-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    .modal {
+        width: 95%;
+        padding: 1.5rem;
+    }
+    
+    .floating-btn {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .edit-mode-btn {
+        bottom: 6rem;
+        left: 1rem;
+        width: 50px;
+        height: 50px;
+    }
+    
+    .theme-settings-btn {
+        top: 70px;
+        right: 20px;
+    }
+    
+    .reset-data-btn {
+        bottom: 6rem;
+        left: 5.5rem;
+        width: 36px;
+        height: 36px;
+    }
+    
     .data-transfer-buttons {
         bottom: 2rem;
         right: 6rem; /* モバイルでは少し寄せる */
@@ -1476,6 +1793,10 @@ h1 {
         height: 40px;
         padding: 0;
         justify-content: center;
+    }
+    
+    .theme-colors {
+        grid-template-columns: 1fr;
     }
 }
     </style>
@@ -1495,6 +1816,14 @@ h1 {
         </svg>
     </button>
     
+    <!-- テーマ設定ボタン -->
+    <button id="themeSettingsBtn" class="theme-settings-btn" title="テーマ設定">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+    </button>
+    
     <!-- 時計とカレンダー -->
     <div class="clock-container">
       <div id="currentTime" class="current-time">
@@ -1502,7 +1831,10 @@ h1 {
           <circle cx="12" cy="12" r="10"></circle>
           <polyline points="12 6 12 12 16 14"></polyline>
         </svg>
-        <span id="timeDisplay">読み込み中...</span>
+        <div class="date-time-container">
+          <div class="date-display" id="dateDisplay"></div>
+          <div class="time-display" id="timeDisplay">読み込み中...</div>
+        </div>
       </div>
       
       <div id="calendarPopup" class="calendar-popup">
@@ -1557,6 +1889,27 @@ h1 {
                         <!-- カテゴリーボタンはJSで動的に生成 -->
                     </div>
                     <button id="manageCategoriesBtn" class="manage-categories-btn" title="カテゴリー管理">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- グループ選択 -->
+                <div class="group-controls">
+                    <div class="group-dropdown-container">
+                        <select id="groupFilter" class="group-filter">
+                            <option value="all">すべてのグループ</option>
+                            <!-- グループはJSで動的に生成 -->
+                        </select>
+                        <div class="select-arrow">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                    <button id="manageGroupsBtn" class="manage-groups-btn" title="グループ管理">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="12" y1="5" x2="12" y2="19"></line>
                             <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -1647,6 +2000,13 @@ h1 {
                         <!-- カテゴリーオプションはJSで動的に生成 -->
                     </select>
                 </div>
+                <div class="form-group">
+                    <label for="linkGroup" class="form-label">グループ</label>
+                    <select id="linkGroup" class="form-input form-select">
+                        <option value="">なし</option>
+                        <!-- グループオプションはJSで動的に生成 -->
+                    </select>
+                </div>
                 <button type="submit" class="btn btn-block">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
@@ -1695,6 +2055,41 @@ h1 {
         </div>
     </div>
 
+    <!-- グループ管理モーダル -->
+    <div id="groupModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <div class="modal-title-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <rect x="7" y="7" width="3" height="9"></rect>
+                            <rect x="14" y="7" width="3" height="5"></rect>
+                        </svg>
+                    </div>
+                    グループ管理
+                </div>
+                <button id="closeGroupModalBtn" class="modal-close">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="group-list" id="groupList">
+                <!-- グループリストがJSで動的に生成 -->
+            </div>
+            <div class="form-group">
+                <label for="newGroupName" class="form-label">新しいグループ</label>
+                <div class="add-group-input">
+                    <input type="text" id="newGroupName" class="form-input" placeholder="グループ名を入力">
+                    <input type="color" id="newGroupColor" class="color-picker" value="#6366f1">
+                    <button id="addGroupBtn" class="btn btn-small">追加</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- アイコン選択モーダル -->
     <div id="iconModal" class="modal-overlay">
         <div class="modal icon-selector-modal">
@@ -1723,6 +2118,210 @@ h1 {
         </div>
     </div>
 
+    <!-- テーマ設定モーダル -->
+    <div id="themeSettingsModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <div class="modal-title-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                        </svg>
+                    </div>
+                    テーマ設定
+                </div>
+                <button id="closeThemeSettingsBtn" class="modal-close">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="theme-settings-content">
+                <div class="theme-option">
+                    <span>モード</span>
+                    <div class="theme-mode-toggle">
+                        <button id="lightModeBtn" class="theme-mode-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="5"></circle>
+                                <line x1="12" y1="1" x2="12" y2="3"></line>
+                                <line x1="12" y1="21" x2="12" y2="23"></line>
+                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                                <line x1="1" y1="12" x2="3" y2="12"></line>
+                                <line x1="21" y1="12" x2="23" y2="12"></line>
+                                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                            </svg>
+                            ライト
+                        </button>
+                        <button id="darkModeBtn" class="theme-mode-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                            </svg>
+                            ダーク
+                        </button>
+                        <button id="autoModeBtn" class="theme-mode-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+<line x1="3" y1="12" x2="21" y2="12"></line>
+                                <line x1="12" y1="3" x2="12" y2="21"></line>
+                            </svg>
+                            自動
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="theme-colors">
+                    <div class="color-option">
+                        <label for="primaryColor">プライマリーカラー</label>
+                        <input type="color" id="primaryColor" class="color-picker" value="#6366f1">
+                    </div>
+                    
+                    <div class="color-option">
+                        <label for="bgGradient1">背景グラデーション（開始）</label>
+                        <input type="color" id="bgGradient1" class="color-picker" value="#6b46b3">
+                    </div>
+                    
+                    <div class="color-option">
+                        <label for="bgGradient2">背景グラデーション（終了）</label>
+                        <input type="color" id="bgGradient2" class="color-picker" value="#a76ec8">
+                    </div>
+                    
+                    <div class="color-option">
+                        <label for="textColor">テキストカラー</label>
+                        <input type="color" id="textColor" class="color-picker" value="#ffffff">
+                    </div>
+                </div>
+                
+                <div class="theme-effects">
+                    <div class="effect-option">
+                        <label for="blurStrength">ブラー強度</label>
+                        <input type="range" id="blurStrength" min="0" max="20" value="10" class="range-slider">
+                        <span id="blurValue">10px</span>
+                    </div>
+                    
+                    <div class="effect-option">
+                        <label for="cardOpacity">カード透明度</label>
+                        <input type="range" id="cardOpacity" min="1" max="9" value="1" class="range-slider">
+                        <span id="opacityValue">0.1</span>
+                    </div>
+                    
+                    <div class="effect-option">
+                        <label for="animationSpeed">アニメーション速度</label>
+                        <input type="range" id="animationSpeed" min="5" max="15" value="10" class="range-slider">
+                        <span id="speedValue">普通</span>
+                    </div>
+                </div>
+                
+                <div class="font-settings">
+                    <div class="font-option">
+                        <label for="fontSize">フォントサイズ</label>
+                        <select id="fontSize" class="form-input">
+                            <option value="small">小</option>
+                            <option value="medium" selected>中</option>
+                            <option value="large">大</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="theme-presets">
+                    <button class="preset-btn" data-preset="default">デフォルト</button>
+                    <button class="preset-btn" data-preset="ocean">オーシャン</button>
+                    <button class="preset-btn" data-preset="sunset">サンセット</button>
+                    <button class="preset-btn" data-preset="forest">フォレスト</button>
+                    <button class="preset-btn" data-preset="minimal">ミニマル</button>
+                </div>
+                
+                <div class="modal-actions">
+                    <button id="resetThemeBtn" class="btn btn-outline">リセット</button>
+                    <button id="applyThemeBtn" class="btn btn-primary">適用</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 一括インポートモーダル -->
+    <div id="bulkImportModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <div class="modal-title-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                    </div>
+                    <span>リンクの一括インポート</span>
+                </div>
+                <button id="closeBulkImportBtn" class="modal-close">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="import-tabs">
+                <button class="import-tab active" data-tab="csv">CSVインポート</button>
+                <button class="import-tab" data-tab="bookmark">ブックマークインポート</button>
+                <button class="import-tab" data-tab="text">テキストインポート</button>
+            </div>
+            
+            <div class="import-content active" id="csvImport">
+                <p class="import-instructions">CSVファイルからリンクをインポートします。<br>CSVフォーマット: タイトル,URL,説明,カテゴリー</p>
+                <div class="form-group">
+                    <label for="csvFile" class="form-label">CSVファイル</label>
+                    <input type="file" id="csvFile" class="form-input file-input" accept=".csv">
+                </div>
+                <div class="csv-preview">
+                    <h4>プレビュー</h4>
+                    <div id="csvPreview" class="preview-container"></div>
+                </div>
+            </div>
+            
+            <div class="import-content" id="bookmarkImport">
+                <p class="import-instructions">HTMLブックマークファイルからリンクをインポートします。<br>ブラウザの「ブックマークをエクスポート」機能で出力したファイルを使用してください。</p>
+                <div class="form-group">
+                    <label for="bookmarkFile" class="form-label">HTMLブックマークファイル</label>
+                    <input type="file" id="bookmarkFile" class="form-input file-input" accept=".html,.htm">
+                </div>
+                <div class="bookmark-preview">
+                    <h4>プレビュー</h4>
+                    <div id="bookmarkPreview" class="preview-container"></div>
+                </div>
+            </div>
+            
+            <div class="import-content" id="textImport">
+                <p class="import-instructions">テキスト形式でリンクを一括入力します。<br>一行につき「タイトル,URL」の形式で入力してください。</p>
+                <div class="form-group">
+                    <label for="importText" class="form-label">リンクリスト</label>
+                    <textarea id="importText" class="form-input form-textarea" rows="10" placeholder="Google,https://www.google.com"></textarea>
+                </div>
+            </div>
+            
+<div class="import-options">
+    <label class="import-option">
+        <input type="checkbox" id="skipDuplicates" checked>
+        <span>重複するURLをスキップする</span>
+    </label>
+    <label class="import-option">
+        <input type="checkbox" id="importToCategory">
+        <span>すべてのリンクを特定のカテゴリーにインポート:</span>
+        <select id="importCategory" class="inline-select">
+            <!-- カテゴリーはJSで動的に生成 -->
+        </select>
+    </label>
+</div>
+            
+            <div class="modal-actions">
+                <button id="cancelImportBtn" class="btn btn-outline">キャンセル</button>
+                <button id="processImportBtn" class="btn btn-primary">インポート</button>
+            </div>
+        </div>
+    </div>
+
     <!-- トースト通知 -->
     <div id="toast" class="toast">
         <div class="toast-icon">
@@ -1733,9 +2332,78 @@ h1 {
         </div>
         <span id="toastMessage" class="toast-message">操作が完了しました</span>
     </div>
+    
+    <!-- データ転送ボタン -->
+    <div class="data-transfer-buttons">
+        <button id="exportDataBtn" class="data-btn export-btn" title="データをエクスポート">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span class="btn-text">エクスポート</span>
+        </button>
+        <button id="importDataBtn" class="data-btn import-btn" title="データをインポート">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <span class="btn-text">インポート</span>
+        </button>
+        <button id="bulkImportBtn" class="data-btn bulk-import-btn" title="リンクを一括インポート">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+                <line x1="8" y1="12" x2="16" y2="12"></line>
+            </svg>
+            <span class="btn-text">一括インポート</span>
+        </button>
+    </div>
+    
+    <!-- リセットボタン -->
+    <button id="resetDataBtn" class="reset-data-btn" title="データをリセット">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 6h18"></path>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
+            <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            <line x1="10" y1="11" x2="10" y2="17"></line>
+            <line x1="14" y1="11" x2="14" y2="17"></line>
+        </svg>
+    </button>
+
+    <!-- リセット確認モーダル -->
+    <div id="resetModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <div class="modal-title-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                    </div>
+                    <span>データをリセット</span>
+                </div>
+                <button id="closeResetModalBtn" class="modal-close">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <p>すべてのデータ（リンク、カテゴリー、設定など）をリセットしてもよろしいですか？<br>この操作は元に戻すことができません。</p>
+            <div class="reset-modal-actions">
+                <button id="cancelResetBtn" class="btn btn-cancel">キャンセル</button>
+                <button id="confirmResetBtn" class="btn btn-danger">すべて削除</button>
+            </div>
+        </div>
+    </div>
 
     <script>
-// SVGアイコンの定義（追加分）
+// SVGアイコンの定義
 const svgIcons = {
     // 基本的なアイコン
     'home': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>`,
@@ -1756,16 +2424,22 @@ const svgIcons = {
     'slack': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="13" y="2" width="3" height="8" rx="1.5"></rect><path d="M19 8.5V10h1.5A1.5 1.5 0 1 0 19 8.5"></path><rect x="8" y="14" width="3" height="8" rx="1.5"></rect><path d="M5 15.5V14H3.5A1.5 1.5 0 1 0 5 15.5"></path><rect x="14" y="13" width="8" height="3" rx="1.5"></rect><path d="M15.5 19H14v1.5a1.5 1.5 0 1 0 1.5-1.5"></path><rect x="2" y="8" width="8" height="3" rx="1.5"></rect><path d="M8.5 5H10V3.5A1.5 1.5 0 1 0 8.5 5"></path></svg>`,
     'twitter': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>`,
     
+    // グループアイコン
+    'folder': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>`,
+    'layers': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>`,
+    'package': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>`,
+    'clipboard': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>`,
+    'table': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"></path></svg>`,
+    'grid': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>`,
+    
     // 追加アイコン
     'calendar': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`,
-'mail': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>`,
+    'mail': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>`,
     'file': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>`,
     'cloud': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>`,
     'database': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>`,
     'server': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>`,
-    
-    // 教育とメディア
-    'book-open': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>`,
+'book-open': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>`,
     'video': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>`,
     'music': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>`,
     'image': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>`,
@@ -1774,48 +2448,46 @@ const svgIcons = {
     'user': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>`,
     'users': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>`,
     'message-circle': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>`,
-    'phone': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>`,
     
-    // 輸送、場所
-    'map': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>`,
-    'map-pin': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>`,
-    'globe': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>`,
+    // 教育
+    'graduation-cap': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path></svg>`,
     
-    // ショッピング、ファイナンス
-    'shopping-cart': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>`,
-    'credit-card': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>`,
-    'dollar-sign': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>`,
-    
-    // 健康、ウェルネス
-    'heart': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`,
-    'activity': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>`,
-    
-    // 天気、時間
+    // テーマ切り替え
     'sun': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`,
-    'cloud-rain': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="16" y1="13" x2="16" y2="21"></line><line x1="8" y1="13" x2="8" y2="21"></line><line x1="12" y1="15" x2="12" y2="23"></line><path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"></path></svg>`,
-    'clock': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>`,
+    'moon': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`,
     
-    // テクノロジー、ハードウェア
-    'smartphone': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>`,
-    'monitor': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>`,
-    'printer': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>`,
-    'wifi': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>`,
+    // インポート関連
+    'upload': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>`,
+    'download': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>`,
+    'file-plus': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>`,
+    'file-text': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>`,
+    'corner-down-right': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 10 20 15 15 20"></polyline><path d="M4 4v7a4 4 0 0 0 4 4h12"></path></svg>`,
+    
+    // UI要素
+    'check': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`,
+    'x': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`,
+    'alert-triangle': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>`,
+    'alert-circle': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>`,
     
     // その他
     'star': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`,
-    'flag': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>`,
-    'bell': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>`,
-    'coffee': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>`,
-    'gift': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>`,
-    'scissors': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>`,
-    'camera': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>`,
-    'mic': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>`,
-    'headphones': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>`,
+    'bookmark': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>`,
+    'globe': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>`,
+    'map-pin': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>`,
+    'phone': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>`,
+    'sliders': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>`,
+    'map': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>`,
+    'help-circle': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>`,
+    'save': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>`,
+    'trash': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>`,
+    'edit': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>`,
+    'more-horizontal': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>`,
 };
     </script>
     <script>
 // DOM要素への参照
 const themeToggle = document.getElementById('themeToggle');
+const themeSettingsBtn = document.getElementById('themeSettingsBtn');
 const addLinkBtn = document.getElementById('addLinkBtn');
 const editModeBtn = document.getElementById('editModeBtn');
 const linkModal = document.getElementById('linkModal');
@@ -1826,24 +2498,82 @@ const loadingIndicator = document.getElementById('loadingIndicator');
 const emptyState = document.getElementById('emptyState');
 const searchInput = document.getElementById('searchInput');
 const categoryFilters = document.getElementById('categoryFilters');
+const groupFilter = document.getElementById('groupFilter');
 const toast = document.getElementById('toast');
 const toastMessage = document.getElementById('toastMessage');
 const manageCategoriesBtn = document.getElementById('manageCategoriesBtn');
+const manageGroupsBtn = document.getElementById('manageGroupsBtn');
 const categoryModal = document.getElementById('categoryModal');
+const groupModal = document.getElementById('groupModal');
 const closeCategoryModalBtn = document.getElementById('closeCategoryModalBtn');
+const closeGroupModalBtn = document.getElementById('closeGroupModalBtn');
 const categoryList = document.getElementById('categoryList');
+const groupList = document.getElementById('groupList');
 const newCategoryName = document.getElementById('newCategoryName');
+const newGroupName = document.getElementById('newGroupName');
+const newGroupColor = document.getElementById('newGroupColor');
 const addCategoryBtn = document.getElementById('addCategoryBtn');
+const addGroupBtn = document.getElementById('addGroupBtn');
 const linkCategory = document.getElementById('linkCategory');
+const linkGroup = document.getElementById('linkGroup');
 const modalTitle = document.getElementById('modalTitle');
 const submitBtnText = document.getElementById('submitBtnText');
 const linkId = document.getElementById('linkId');
+
+// テーマ設定モーダル
+const themeSettingsModal = document.getElementById('themeSettingsModal');
+const closeThemeSettingsBtn = document.getElementById('closeThemeSettingsBtn');
+const primaryColor = document.getElementById('primaryColor');
+const bgGradient1 = document.getElementById('bgGradient1');
+const bgGradient2 = document.getElementById('bgGradient2');
+const textColor = document.getElementById('textColor');
+const blurStrength = document.getElementById('blurStrength');
+const blurValue = document.getElementById('blurValue');
+const cardOpacity = document.getElementById('cardOpacity');
+const opacityValue = document.getElementById('opacityValue');
+const animationSpeed = document.getElementById('animationSpeed');
+const speedValue = document.getElementById('speedValue');
+const fontSize = document.getElementById('fontSize');
+const resetThemeBtn = document.getElementById('resetThemeBtn');
+const applyThemeBtn = document.getElementById('applyThemeBtn');
+const lightModeBtn = document.getElementById('lightModeBtn');
+const darkModeBtn = document.getElementById('darkModeBtn');
+const autoModeBtn = document.getElementById('autoModeBtn');
+const presetBtns = document.querySelectorAll('.preset-btn');
+
+// 一括インポートモーダル
+const bulkImportBtn = document.getElementById('bulkImportBtn');
+const bulkImportModal = document.getElementById('bulkImportModal');
+const closeBulkImportBtn = document.getElementById('closeBulkImportBtn');
+const importTabs = document.querySelectorAll('.import-tab');
+const importContents = document.querySelectorAll('.import-content');
+const csvFile = document.getElementById('csvFile');
+const bookmarkFile = document.getElementById('bookmarkFile');
+const importText = document.getElementById('importText');
+const csvPreview = document.getElementById('csvPreview');
+const bookmarkPreview = document.getElementById('bookmarkPreview');
+const skipDuplicates = document.getElementById('skipDuplicates');
+const importToCategory = document.getElementById('importToCategory');
+const importCategory = document.getElementById('importCategory');
+const cancelImportBtn = document.getElementById('cancelImportBtn');
+const processImportBtn = document.getElementById('processImportBtn');
 
 // アイコン選択モーダル要素
 const iconModal = document.getElementById('iconModal');
 const closeIconModalBtn = document.getElementById('closeIconModalBtn');
 const iconGrid = document.getElementById('iconGrid');
 const iconModalTitle = document.getElementById('iconModalTitle');
+
+// リセット関連
+const resetDataBtn = document.getElementById('resetDataBtn');
+const resetModal = document.getElementById('resetModal');
+const closeResetModalBtn = document.getElementById('closeResetModalBtn');
+const cancelResetBtn = document.getElementById('cancelResetBtn');
+const confirmResetBtn = document.getElementById('confirmResetBtn');
+
+// データエクスポート/インポート関連
+const exportDataBtn = document.getElementById('exportDataBtn');
+const importDataBtn = document.getElementById('importDataBtn');
 
 // 配置編集モード関連の変数
 let isEditMode = false;
@@ -1852,9 +2582,85 @@ const MAX_SELECTED = 2;
 
 // 現在編集中のカテゴリー名を保持
 let currentEditingCategory = '';
+// 現在編集中のグループ名を保持
+let currentEditingGroup = '';
 
 // デフォルトのカテゴリー
 const defaultCategories = ['ツール'];
+// デフォルトのグループ
+const defaultGroups = [];
+
+// デフォルトテーマ設定
+const defaultThemeSettings = {
+    mode: 'auto',
+    primaryColor: '#6366f1',
+    bgGradient1: '#6b46b3',
+    bgGradient2: '#a76ec8',
+    textColor: '#ffffff',
+    blurStrength: 10,
+    cardOpacity: 1,
+    animationSpeed: 10,
+    fontSize: 'medium'
+};
+
+// テーマプリセット
+const themePresets = {
+    default: {
+        mode: 'auto',
+        primaryColor: '#6366f1',
+        bgGradient1: '#6b46b3',
+        bgGradient2: '#a76ec8',
+        textColor: '#ffffff',
+        blurStrength: 10,
+        cardOpacity: 1,
+        animationSpeed: 10,
+        fontSize: 'medium'
+    },
+    ocean: {
+        mode: 'auto',
+        primaryColor: '#06b6d4',
+        bgGradient1: '#0c4a6e',
+        bgGradient2: '#0891b2',
+        textColor: '#f0f9ff',
+        blurStrength: 12,
+        cardOpacity: 2,
+        animationSpeed: 8,
+        fontSize: 'medium'
+    },
+    sunset: {
+        mode: 'auto',
+        primaryColor: '#f97316',
+        bgGradient1: '#7c2d12',
+        bgGradient2: '#fdba74',
+        textColor: '#fff7ed',
+        blurStrength: 8,
+        cardOpacity: 1,
+        animationSpeed: 12,
+        fontSize: 'medium'
+    },
+    forest: {
+        mode: 'auto',
+        primaryColor: '#16a34a',
+        bgGradient1: '#14532d',
+        bgGradient2: '#4ade80',
+        textColor: '#f0fdf4',
+        blurStrength: 8,
+        cardOpacity: 1,
+        animationSpeed: 15,
+        fontSize: 'medium'
+    },
+    minimal: {
+        mode: 'auto',
+        primaryColor: '#525252',
+        bgGradient1: '#18181b',
+        bgGradient2: '#3f3f46',
+        textColor: '#f5f5f5',
+        blurStrength: 5,
+        cardOpacity: 3,
+        animationSpeed: 5,
+        fontSize: 'medium'
+    }
+};
 
 // ローカルストレージからカテゴリーを取得する関数
 function getCategories() {
@@ -1871,6 +2677,34 @@ function getCategoryOrder() {
 // カテゴリーの順序を保存する関数
 function saveCategoryOrder(order) {
     localStorage.setItem('portalCategoryOrder', JSON.stringify(order));
+}
+
+// ローカルストレージからグループを取得する関数
+function getGroups() {
+    const groups = localStorage.getItem('portalGroups');
+    return groups ? JSON.parse(groups) : defaultGroups;
+}
+
+// グループの順序を取得する関数
+function getGroupOrder() {
+    const order = localStorage.getItem('portalGroupOrder');
+    return order ? JSON.parse(order) : getGroups();
+}
+
+// グループの順序を保存する関数
+function saveGroupOrder(order) {
+    localStorage.setItem('portalGroupOrder', JSON.stringify(order));
+}
+
+// グループの色を取得する関数
+function getGroupColors() {
+    const colors = localStorage.getItem('portalGroupColors');
+    return colors ? JSON.parse(colors) : {};
+}
+
+// グループの色を保存する関数
+function saveGroupColors(colors) {
+    localStorage.setItem('portalGroupColors', JSON.stringify(colors));
 }
 
 // カテゴリーを移動する関数
@@ -1896,7 +2730,7 @@ function moveCategory(categoryName, direction) {
     [currentOrder[currentIndex], currentOrder[targetIndex]] = 
     [currentOrder[targetIndex], currentOrder[currentIndex]];
     
-    // 新しい順序を保存
+// 新しい順序を保存
     saveCategoryOrder(currentOrder);
     
     // UIを更新
@@ -1908,9 +2742,49 @@ function moveCategory(categoryName, direction) {
         `カテゴリー「${categoryName}」を下に移動しました`);
 }
 
+// グループを移動する関数
+function moveGroup(groupName, direction) {
+    const groups = getGroups();
+    const currentOrder = getGroupOrder();
+    
+    // インデックスを取得
+    const currentIndex = currentOrder.indexOf(groupName);
+    
+    // 移動先を計算
+    let targetIndex;
+    if (direction === 'up' && currentIndex > 0) {
+        targetIndex = currentIndex - 1;
+    } else if (direction === 'down' && currentIndex < currentOrder.length - 1) {
+        targetIndex = currentIndex + 1;
+    } else {
+        // 最上部または最下部の場合は何もしない
+        return;
+    }
+    
+    // 順序を入れ替え
+    [currentOrder[currentIndex], currentOrder[targetIndex]] = 
+    [currentOrder[targetIndex], currentOrder[currentIndex]];
+    
+    // 新しい順序を保存
+    saveGroupOrder(currentOrder);
+    
+    // UIを更新
+    renderGroupList();
+    renderGroupFilter();
+    
+    showToast(direction === 'up' ? 
+        `グループ「${groupName}」を上に移動しました` : 
+        `グループ「${groupName}」を下に移動しました`);
+}
+
 // カテゴリーをローカルストレージに保存する関数
 function saveCategories(categories) {
     localStorage.setItem('portalCategories', JSON.stringify(categories));
+}
+
+// グループをローカルストレージに保存する関数
+function saveGroups(groups) {
+    localStorage.setItem('portalGroups', JSON.stringify(groups));
 }
 
 // カテゴリーアイコンをローカルストレージから取得
@@ -1943,37 +2817,140 @@ function updateCategoryIcon(categoryName, iconKey) {
     showToast(`「${categoryName}」のアイコンを更新しました`);
 }
 
-// ダークモード切り替え
-function toggleTheme() {
-    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    
-    // アイコン切り替え
-    if (newTheme === 'dark') {
-        themeToggle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
-    } else {
-        themeToggle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
-    }
-    
-    showToast(newTheme === 'dark' ? 'ダークモードに切り替えました' : 'ライトモードに切り替えました');
+// テーマ設定をローカルストレージから取得
+function getThemeSettings() {
+    const settings = localStorage.getItem('portalThemeSettings');
+    return settings ? JSON.parse(settings) : defaultThemeSettings;
 }
 
-// 保存されたテーマを適用
-function applyTheme() {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        document.documentElement.setAttribute('data-theme', savedTheme);
-        if (savedTheme === 'dark') {
-            themeToggle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
-        }
-    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        // システム設定がダークモードの場合
+// テーマ設定をローカルストレージに保存
+function saveThemeSettings(settings) {
+    localStorage.setItem('portalThemeSettings', JSON.stringify(settings));
+}
+
+// テーマ設定を適用する関数
+function applyThemeSettings(settings) {
+    const root = document.documentElement;
+    
+    // CSSカスタム変数を設定
+    root.style.setProperty('--primary', settings.primaryColor);
+    root.style.setProperty('--blur-strength', `${settings.blurStrength}px`);
+    root.style.setProperty('--glass-bg', `rgba(255, 255, 255, ${settings.cardOpacity / 10})`);
+    root.style.setProperty('--bg-gradient-1', settings.bgGradient1);
+    root.style.setProperty('--bg-gradient-2', settings.bgGradient2);
+    root.style.setProperty('--bg-gradient-3', settings.bgGradient2);
+    root.style.setProperty('--text-color', settings.textColor);
+    root.style.setProperty('--animation-speed', `${30 - settings.animationSpeed * 2}s`);
+    
+    // フォントサイズの適用
+    document.body.classList.remove('font-small', 'font-medium', 'font-large');
+    document.body.classList.add(`font-${settings.fontSize}`);
+    
+    // テーマモードの適用
+    if (settings.mode === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        // アイコン切り替え
+        themeToggle.innerHTML = svgIcons.moon;
+    } else if (settings.mode === 'dark') {
         document.documentElement.setAttribute('data-theme', 'dark');
-        themeToggle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
+        // アイコン切り替え
+        themeToggle.innerHTML = svgIcons.sun;
+        // ダークモード時は背景グラデーションを固定
+        root.style.setProperty('--bg-gradient-1', '#121212');
+        root.style.setProperty('--bg-gradient-2', '#2D3748');
+        root.style.setProperty('--bg-gradient-3', '#1A202C');
+    } else {
+        // 自動モード（システム設定に従う）
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeToggle.innerHTML = svgIcons.sun;
+            // ダークモード時は背景グラデーションを固定
+            root.style.setProperty('--bg-gradient-1', '#121212');
+            root.style.setProperty('--bg-gradient-2', '#2D3748');
+            root.style.setProperty('--bg-gradient-3', '#1A202C');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            themeToggle.innerHTML = svgIcons.moon;
+        }
     }
+    
+    // テーマ設定フォームを更新
+    updateThemeSettingsForm(settings);
+}
+
+// テーマ設定フォームを更新する関数
+function updateThemeSettingsForm(settings) {
+    primaryColor.value = settings.primaryColor;
+    bgGradient1.value = settings.bgGradient1;
+    bgGradient2.value = settings.bgGradient2;
+    textColor.value = settings.textColor;
+    blurStrength.value = settings.blurStrength;
+    blurValue.textContent = `${settings.blurStrength}px`;
+    cardOpacity.value = settings.cardOpacity;
+    opacityValue.textContent = `0.${settings.cardOpacity}`;
+    animationSpeed.value = settings.animationSpeed;
+    
+    // アニメーション速度の表示をわかりやすく
+    if (settings.animationSpeed <= 5) {
+        speedValue.textContent = '遅い';
+    } else if (settings.animationSpeed <= 10) {
+        speedValue.textContent = '普通';
+    } else {
+        speedValue.textContent = '速い';
+    }
+    
+    fontSize.value = settings.fontSize;
+    
+    // モードボタンのアクティブ状態を更新
+    lightModeBtn.classList.remove('active');
+    darkModeBtn.classList.remove('active');
+    autoModeBtn.classList.remove('active');
+    
+    if (settings.mode === 'light') {
+        lightModeBtn.classList.add('active');
+    } else if (settings.mode === 'dark') {
+        darkModeBtn.classList.add('active');
+    } else {
+        autoModeBtn.classList.add('active');
+    }
+    
+    // ダークモードかどうかをチェック
+    const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
+    
+    // ダークモード時は背景グラデーション設定を無効化
+    if (isDarkMode) {
+        bgGradient1.disabled = true;
+        bgGradient2.disabled = true;
+        bgGradient1.style.opacity = '0.5';
+        bgGradient2.style.opacity = '0.5';
+        // ツールチップを追加
+        bgGradient1.title = 'ダークモードでは編集できません';
+        bgGradient2.title = 'ダークモードでは編集できません';
+    } else {
+        bgGradient1.disabled = false;
+        bgGradient2.disabled = false;
+        bgGradient1.style.opacity = '1';
+        bgGradient2.style.opacity = '1';
+        bgGradient1.title = '';
+        bgGradient2.title = '';
+    }
+}
+
+// ダークモード切り替え
+function toggleTheme() {
+    const settings = getThemeSettings();
+    if (document.documentElement.getAttribute('data-theme') === 'dark') {
+        // ダークモードからライトモードへ
+        settings.mode = 'light';
+    } else {
+        // ライトモードからダークモードへ
+        settings.mode = 'dark';
+    }
+    
+    saveThemeSettings(settings);
+    applyThemeSettings(settings);
+    
+    showToast(settings.mode === 'dark' ? 'ダークモードに切り替えました' : 'ライトモードに切り替えました');
 }
 
 // モーダルの開閉
@@ -1992,6 +2969,7 @@ function openLinkModal(mode = 'add', link = null) {
         document.getElementById('linkUrl').value = link.url;
         document.getElementById('linkDescription').value = link.description || '';
         document.getElementById('linkCategory').value = link.category || 'ツール';
+        document.getElementById('linkGroup').value = link.group || '';
     } else {
         modalTitle.textContent = '新しいリンクを追加';
         submitBtnText.textContent = 'リンクを追加';
@@ -2020,6 +2998,70 @@ function closeCategoryModal() {
     }, 300);
 }
 
+function openGroupModal() {
+    groupModal.classList.add('active');
+    renderGroupList();
+}
+
+function closeGroupModal() {
+    groupModal.classList.remove('active');
+    setTimeout(() => {
+        newGroupName.value = '';
+    }, 300);
+}
+
+function openThemeSettingsModal() {
+    const settings = getThemeSettings();
+    updateThemeSettingsForm(settings);
+    themeSettingsModal.classList.add('active');
+}
+
+function closeThemeSettingsModal() {
+    themeSettingsModal.classList.remove('active');
+}
+
+function openBulkImportModal() {
+    // インポートカテゴリの選択肢を更新
+    updateImportCategorySelect();
+    bulkImportModal.classList.add('active');
+}
+
+function closeBulkImportModal() {
+    bulkImportModal.classList.remove('active');
+    // インプットをリセット
+    csvFile.value = '';
+    bookmarkFile.value = '';
+    importText.value = '';
+    csvPreview.innerHTML = '';
+    bookmarkPreview.innerHTML = '';
+}
+
+// インポートカテゴリ選択肢を更新
+function updateImportCategorySelect() {
+    const categories = getCategories();
+    importCategory.innerHTML = '';
+    
+    categories.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category;
+        option.textContent = category;
+        importCategory.appendChild(option);
+    });
+}
+
+// インポートグループ選択肢を更新
+function updateImportGroupSelect() {
+    const groups = getGroups();
+    importGroup.innerHTML = '<option value="">選択してください</option>';
+    
+    groups.forEach(group => {
+        const option = document.createElement('option');
+        option.value = group;
+        option.textContent = group;
+        importGroup.appendChild(option);
+    });
+}
+
 // アイコングリッドをレンダリング
 function renderIconGrid(categoryName) {
     iconGrid.innerHTML = '';
@@ -2030,16 +3072,13 @@ function renderIconGrid(categoryName) {
     const iconCategories = {
         '基本': ['home', 'plus', 'settings', 'link', 'info'],
         'カテゴリー': ['work', 'code', 'tool', 'book'],
+        'グループ': ['folder', 'layers', 'package', 'clipboard', 'table', 'grid'],
         'ソーシャル': ['google', 'github', 'slack', 'twitter'],
         'オフィス': ['calendar', 'mail', 'file', 'cloud', 'database', 'server'],
         'メディア': ['book-open', 'video', 'music', 'image'],
-        'ユーザー': ['user', 'users', 'message-circle', 'phone'],
         '場所': ['map', 'map-pin', 'globe'],
-        'ショッピング': ['shopping-cart', 'credit-card', 'dollar-sign'],
-        '健康': ['heart', 'activity'],
-        '天気/時間': ['sun', 'cloud-rain', 'clock'],
-        'テクノロジー': ['smartphone', 'monitor', 'printer', 'wifi'],
-        'その他': ['star', 'flag', 'bell', 'coffee', 'gift', 'scissors', 'camera', 'mic', 'headphones']
+        'ユーザー': ['user', 'users', 'message-circle', 'phone'],
+        'その他': ['star', 'bookmark', 'help-circle', 'graduation-cap']
     };
     
     // カテゴリーごとにアイコンを表示
@@ -2204,7 +3243,8 @@ function swapCards(id1, id2) {
         
         // 現在のフィルター状態を維持して再レンダリング
         const activeCategory = document.querySelector('.category-filter.active').dataset.category;
-        renderLinks(searchInput.value, activeCategory);
+        const activeGroup = groupFilter.value;
+        renderLinks(searchInput.value, activeCategory, activeGroup);
         
         showToast('カードの位置を入れ替えました');
     }
@@ -2224,10 +3264,11 @@ function moveCard(id, direction) {
     
     // 現在のフィルター状態を取得
     const activeCategory = document.querySelector('.category-filter.active').dataset.category;
+    const activeGroup = groupFilter.value;
     const searchTerm = searchInput.value;
     
     // 表示中のリンク（フィルタリング後）を取得し、現在の表示順序を保持
-    const filteredLinks = getFilteredLinks(links, searchTerm, activeCategory);
+    const filteredLinks = getFilteredLinks(links, searchTerm, activeCategory, activeGroup);
     
     // 移動対象のリンクのフィルター内でのインデックスを取得
     const currentFilteredIndex = filteredLinks.findIndex(link => link.id === id);
@@ -2269,7 +3310,7 @@ function moveCard(id, direction) {
         saveLinks(links);
         
         // 現在のフィルター状態を維持して再レンダリング
-        renderLinks(searchTerm, activeCategory);
+        renderLinks(searchTerm, activeCategory, activeGroup);
         
         showToast(direction === 'up' ? 'カードを上に移動しました' : 'カードを下に移動しました');
     }
@@ -2290,6 +3331,12 @@ function getIconForCategory(category) {
     const categoryIcons = getCategoryIcons();
     const iconKey = categoryIcons[category] || 'info';
     return svgIcons[iconKey] || svgIcons.info;
+}
+
+// グループの色を取得
+function getColorForGroup(group) {
+    const groupColors = getGroupColors();
+    return groupColors[group] || '#6366f1';
 }
 
 // URLからアイコンを自動検出する関数
@@ -2323,6 +3370,7 @@ function getLinks() {
             url: 'https://www.google.com',
             description: '世界最大の検索エンジン。情報検索や各種Googleサービスへのアクセスに利用します。',
             category: 'ツール',
+            group: '',
             order: 0
         }
     ];
@@ -2347,7 +3395,7 @@ function getFilteredLinks(links, searchTerm = '', category = 'all') {
     });
 }
 
-// カテゴリーフィルターを生成する関数
+// グループ選択部分を非表示にする
 function renderCategoryFilters() {
     const categories = getCategories();
     const categoryOrder = getCategoryOrder();
@@ -2374,6 +3422,30 @@ function renderCategoryFilters() {
     updateCategorySelect();
 }
 
+// グループフィルターを生成する関数
+function renderGroupFilter() {
+    const groups = getGroups();
+    const groupOrder = getGroupOrder();
+    const activeGroup = groupFilter.value || 'all';
+    
+    // セレクトをクリア
+    groupFilter.innerHTML = '<option value="all">すべてのグループ</option>';
+    
+    // 各グループのオプションを順序に従って生成
+    groupOrder.forEach(group => {
+        if (!groups.includes(group)) return; // 削除されたグループをスキップ
+        
+        const option = document.createElement('option');
+        option.value = group;
+        option.textContent = group;
+        option.selected = group === activeGroup;
+        groupFilter.appendChild(option);
+    });
+    
+    // グループセレクトボックスを更新
+    updateGroupSelect();
+}
+
 // リンクカテゴリーセレクトボックスを更新する関数
 function updateCategorySelect() {
     const categories = getCategories();
@@ -2384,6 +3456,19 @@ function updateCategorySelect() {
         option.value = category;
         option.textContent = category;
         linkCategory.appendChild(option);
+    });
+}
+
+// リンクグループセレクトボックスを更新する関数
+function updateGroupSelect() {
+    const groups = getGroups();
+    linkGroup.innerHTML = '<option value="">なし</option>';
+    
+    groups.forEach(group => {
+        const option = document.createElement('option');
+        option.value = group;
+        option.textContent = group;
+        linkGroup.appendChild(option);
     });
 }
 
@@ -2433,7 +3518,7 @@ function renderCategoryList() {
                         <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                         <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                     </svg>
-                </button>
+</button>
                 <button class="icon-btn change-icon-btn" data-category="${category}" title="アイコン変更">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
@@ -2441,7 +3526,7 @@ function renderCategoryList() {
                         <polyline points="21 15 16 10 5 21"></polyline>
                     </svg>
                 </button>
-<button class="icon-btn delete-category-btn" data-category="${category}" title="削除">
+                <button class="icon-btn delete-category-btn" data-category="${category}" title="削除">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="3 6 5 6 21 6"></polyline>
                         <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
@@ -2499,7 +3584,156 @@ function renderCategoryList() {
     });
 }
 
-// カテゴリーを追加する関数
+// グループ管理リストを生成する関数
+function renderGroupList() {
+    const groups = getGroups();
+    const groupOrder = getGroupOrder();
+    const groupColors = getGroupColors();
+    groupList.innerHTML = '';
+    
+    // 順序に基づいてグループを表示
+    groupOrder.forEach(group => {
+        if (!groups.includes(group)) return; // 削除されたグループをスキップ
+        
+        const color = groupColors[group] || '#6366f1';
+        
+        const item = document.createElement('div');
+        item.className = 'group-item';
+        
+        // 移動ボタンを追加
+        const positionControls = `
+            <div class="category-position-controls">
+                <button class="position-btn move-group-up-btn" data-group="${group}" title="上へ移動">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="18 15 12 9 6 15"></polyline>
+                    </svg>
+                </button>
+                <button class="position-btn move-group-down-btn" data-group="${group}" title="下へ移動">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+            </div>
+        `;
+        
+        item.innerHTML = `
+            <div class="group-name">
+                <span class="group-color" style="background-color: ${color}"></span>
+                ${group}
+            </div>
+            <div class="group-actions">
+                ${positionControls}
+                <button class="icon-btn edit-group-btn" data-group="${group}" title="編集">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                    </svg>
+                </button>
+                <button class="icon-btn change-color-btn" data-group="${group}" data-color="${color}" title="色変更">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <circle cx="12" cy="12" r="4"></circle>
+                    </svg>
+                </button>
+                <button class="icon-btn delete-group-btn" data-group="${group}" title="削除">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                </button>
+            </div>
+        `;
+        
+        groupList.appendChild(item);
+    });
+    
+    // グループ編集イベント
+    document.querySelectorAll('.edit-group-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const group = this.dataset.group;
+            const newName = prompt('グループ名を編集', group);
+            
+            if (newName && newName !== group) {
+                editGroup(group, newName);
+            }
+        });
+    });
+    
+    // 色変更イベント
+    document.querySelectorAll('.change-color-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const group = this.dataset.group;
+            const currentColor = this.dataset.color;
+            
+            // カラーピッカーを表示
+            const colorPicker = document.createElement('input');
+            colorPicker.type = 'color';
+            colorPicker.value = currentColor;
+            colorPicker.style.opacity = '0';
+            colorPicker.style.position = 'absolute';
+            colorPicker.style.pointerEvents = 'none';
+            
+            document.body.appendChild(colorPicker);
+            
+            // カラーピッカーを開く
+            colorPicker.addEventListener('input', function() {
+                // 色を更新
+                updateGroupColor(group, this.value);
+            });
+            
+            colorPicker.click();
+            
+            // クリーンアップ
+            setTimeout(() => {
+                document.body.removeChild(colorPicker);
+            }, 1000);
+        });
+    });
+    
+    // グループ削除イベント
+    document.querySelectorAll('.delete-group-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const group = this.dataset.group;
+            if (confirm(`グループ「${group}」を削除しますか？`)) {
+                deleteGroup(group);
+            }
+        });
+    });
+    
+    // グループ移動イベント
+    document.querySelectorAll('.move-group-up-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const group = this.dataset.group;
+            moveGroup(group, 'up');
+        });
+    });
+    
+    document.querySelectorAll('.move-group-down-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const group = this.dataset.group;
+            moveGroup(group, 'down');
+        });
+    });
+}
+
+// グループの色を更新する関数
+function updateGroupColor(groupName, color) {
+    const groupColors = getGroupColors();
+    groupColors[groupName] = color;
+    saveGroupColors(groupColors);
+    
+    // グループリストを再レンダリング
+    renderGroupList();
+    
+    // リンクを再レンダリング（グループバッジの色を更新）
+    const activeCategory = document.querySelector('.category-filter.active').dataset.category;
+    const activeGroup = groupFilter.value;
+    renderLinks(searchInput.value, activeCategory, activeGroup);
+    
+    showToast(`グループ「${groupName}」の色を変更しました`);
+}
+
+// カテゴリーを追加する関数の修正
 function addCategory(name) {
     if (!name) return;
     
@@ -2509,22 +3743,59 @@ function addCategory(name) {
         return;
     }
     
+    // ここで既にカテゴリー配列に追加している
     categories.push(name);
     saveCategories(categories);
 
-    // 順序リストにも追加
+    // 順序リストを取得して、存在チェックを追加
     const categoryOrder = getCategoryOrder();
-    categoryOrder.push(name);
-    saveCategoryOrder(categoryOrder);
+    if (!categoryOrder.includes(name)) {  // この行を追加
+        categoryOrder.push(name);
+        saveCategoryOrder(categoryOrder);
+    }
     
-    // デフォルトアイコンを設定
+    // デフォルトアイコンを設定（既存アイコンが設定されていない場合のみ）
     const categoryIcons = getCategoryIcons();
-    categoryIcons[name] = 'info'; // デフォルトは情報アイコン
-    saveCategoryIcons(categoryIcons);
+    if (!categoryIcons[name]) {  // この行を追加
+        categoryIcons[name] = 'info'; // デフォルトは情報アイコン
+        saveCategoryIcons(categoryIcons);
+    }
     
     renderCategoryFilters();
     renderCategoryList();
+    
+    // 入力フィールドをクリア
+    document.getElementById('newCategoryName').value = '';
+    
     showToast(`カテゴリー「${name}」を追加しました`);
+}
+
+// グループを追加する関数
+function addGroup(name, color = '#6366f1') {
+    if (!name) return;
+    
+    const groups = getGroups();
+    if (groups.includes(name)) {
+        showToast(`グループ「${name}」は既に存在します`);
+        return;
+    }
+    
+    groups.push(name);
+    saveGroups(groups);
+
+    // 順序リストにも追加
+    const groupOrder = getGroupOrder();
+    groupOrder.push(name);
+    saveGroupOrder(groupOrder);
+    
+    // 色を設定
+    const groupColors = getGroupColors();
+    groupColors[name] = color;
+    saveGroupColors(groupColors);
+    
+    renderGroupFilter();
+    renderGroupList();
+    showToast(`グループ「${name}」を追加しました`);
 }
 
 // カテゴリーを編集する関数
@@ -2569,8 +3840,55 @@ function editCategory(oldName, newName) {
         
         renderCategoryFilters();
         renderCategoryList();
-        renderLinks(searchInput.value, document.querySelector('.category-filter.active').dataset.category);
+        renderLinks(searchInput.value, document.querySelector('.category-filter.active').dataset.category, groupFilter.value);
         showToast(`カテゴリー「${oldName}」を「${newName}」に変更しました`);
+    }
+}
+
+// グループを編集する関数
+function editGroup(oldName, newName) {
+    if (!newName) return;
+    
+    const groups = getGroups();
+    if (groups.includes(newName)) {
+        showToast(`グループ「${newName}」は既に存在します`);
+        return;
+    }
+    
+    const index = groups.indexOf(oldName);
+    if (index !== -1) {
+        groups[index] = newName;
+        saveGroups(groups);
+        
+        // 順序リストも更新
+        const groupOrder = getGroupOrder();
+        const orderIndex = groupOrder.indexOf(oldName);
+        if (orderIndex !== -1) {
+            groupOrder[orderIndex] = newName;
+            saveGroupOrder(groupOrder);
+        }
+        
+        // 色設定も更新
+        const groupColors = getGroupColors();
+        if (groupColors[oldName]) {
+            groupColors[newName] = groupColors[oldName];
+            delete groupColors[oldName];
+            saveGroupColors(groupColors);
+        }
+        
+        // このグループに属するリンクも更新
+        const links = getLinks();
+        links.forEach(link => {
+            if (link.group === oldName) {
+                link.group = newName;
+            }
+        });
+        saveLinks(links);
+        
+        renderGroupFilter();
+        renderGroupList();
+        renderLinks(searchInput.value, document.querySelector('.category-filter.active').dataset.category, groupFilter.value);
+        showToast(`グループ「${oldName}」を「${newName}」に変更しました`);
     }
 }
 
@@ -2613,38 +3931,48 @@ function deleteCategory(name) {
         
         renderCategoryFilters();
         renderCategoryList();
-        renderLinks(searchInput.value, document.querySelector('.category-filter.active').dataset.category);
+        renderLinks(searchInput.value, document.querySelector('.category-filter.active').dataset.category, groupFilter.value);
         showToast(`カテゴリー「${name}」を削除しました`);
     }
 }
 
-// リンクカードを作成して表示する関数
-function renderLinks(searchTerm = '', category = 'all') {
-    let links = getLinks();
+// グループを削除する関数
+function deleteGroup(name) {
+    const groups = getGroups();
+    const index = groups.indexOf(name);
     
-    // リンクの順序をソート
-    links.sort((a, b) => (a.order || 0) - (b.order || 0));
-    
-    // 検索条件とカテゴリーでフィルタリングしたリンクを取得
-    const filteredLinks = getFilteredLinks(links, searchTerm, category);
-    
-    // コンテナをクリア
-    linksContainer.innerHTML = '';
-    
-    // ローディング表示は初期読み込み時には表示しない
-    loadingIndicator.style.display = 'none';
-    
-    // 空の状態を処理
-    if (filteredLinks.length === 0) {
-        emptyState.style.display = 'flex';
-    } else {
-        emptyState.style.display = 'none';
+    if (index !== -1) {
+        groups.splice(index, 1);
+        saveGroups(groups);
         
-        // 各リンクカードを作成して追加
-        filteredLinks.forEach((link, index) => {
-            const cardElement = createLinkCard(link, index);
-            linksContainer.appendChild(cardElement);
+        // 順序リストからも削除
+        const groupOrder = getGroupOrder();
+        const orderIndex = groupOrder.indexOf(name);
+        if (orderIndex !== -1) {
+            groupOrder.splice(orderIndex, 1);
+            saveGroupOrder(groupOrder);
+        }
+        
+        // 色設定も削除
+        const groupColors = getGroupColors();
+        if (groupColors[name]) {
+            delete groupColors[name];
+            saveGroupColors(groupColors);
+        }
+        
+        // このグループに属するリンクはグループなしに設定
+        const links = getLinks();
+        links.forEach(link => {
+            if (link.group === name) {
+                link.group = '';
+            }
         });
+        saveLinks(links);
+        
+        renderGroupFilter();
+        renderGroupList();
+        renderLinks(searchInput.value, document.querySelector('.category-filter.active').dataset.category, groupFilter.value);
+        showToast(`グループ「${name}」を削除しました`);
     }
 }
 
@@ -2654,12 +3982,31 @@ function createLinkCard(link, index) {
     card.className = 'link-card';
     card.dataset.id = link.id;
     card.dataset.category = link.category || '';
+    card.dataset.group = link.group || '';
     card.dataset.order = link.order || index;
     card.style.animationDelay = `${index * 0.05}s`;
     
     const iconHtml = getIconFromUrl(link.url, link.category);
     
+    // グループバッジを生成
+    let groupBadgeHtml = '';
+    if (link.group) {
+        const groupColor = getColorForGroup(link.group);
+        groupBadgeHtml = `
+            <div class="group-badge" style="background-color: ${groupColor}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                ${link.group}
+            </div>
+        `;
+    }
+    
     card.innerHTML = `
+        ${groupBadgeHtml}
         <div class="position-controls">
             <button class="position-btn move-up-btn" title="上へ移動">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2682,7 +4029,7 @@ function createLinkCard(link, index) {
                     <polyline points="15 3 21 3 21 9"></polyline>
                     <line x1="10" y1="14" x2="21" y2="3"></line>
                 </svg>
-                訪問
+                開く
             </a>
             <div class="link-actions-group">
                 <button class="icon-btn edit-btn" data-id="${link.id}" title="編集">
@@ -2746,6 +4093,36 @@ function createLinkCard(link, index) {
     return card;
 }
 
+// リンクカードを作成して表示する関数
+function renderLinks(searchTerm = '', category = 'all') {
+    let links = getLinks();
+    
+    // リンクの順序をソート
+    links.sort((a, b) => (a.order || 0) - (b.order || 0));
+    
+    // 検索条件とカテゴリーでフィルタリングしたリンクを取得
+    const filteredLinks = getFilteredLinks(links, searchTerm, category);
+    
+    // コンテナをクリア
+    linksContainer.innerHTML = '';
+    
+    // ローディング表示は初期読み込み時には表示しない
+    loadingIndicator.style.display = 'none';
+    
+    // 空の状態を処理
+    if (filteredLinks.length === 0) {
+        emptyState.style.display = 'flex';
+    } else {
+        emptyState.style.display = 'none';
+        
+        // 各リンクカードを作成して追加
+        filteredLinks.forEach((link, index) => {
+            const cardElement = createLinkCard(link, index);
+            linksContainer.appendChild(cardElement);
+        });
+    }
+}
+
 // ツールチップ機能
 function addTooltip(element, text) {
     const tooltip = document.createElement('div');
@@ -2786,7 +4163,9 @@ function saveLink(formData) {
                 title,
                 url,
                 description,
-                category
+                category,
+                // グループは空文字列に固定
+                group: ''
             };
             saveLinks(links);
             showToast('リンクを更新しました');
@@ -2799,6 +4178,8 @@ function saveLink(formData) {
             url,
             description,
             category,
+            // グループは空文字列に固定
+            group: '',
             order: links.length
         };
         links.push(newLink);
@@ -2808,7 +4189,7 @@ function saveLink(formData) {
     
     // 現在のフィルター状態を維持して再レンダリング
     const activeCategory = document.querySelector('.category-filter.active').dataset.category;
-    renderLinks(searchInput.value, activeCategory);
+    renderLinks(searchInput.value, activeCategory, 'all');
 }
 
 // リンクを削除する関数
@@ -2831,12 +4212,173 @@ function deleteLink(id) {
         
         // 現在のフィルター状態を維持して再レンダリング
         const activeCategory = document.querySelector('.category-filter.active').dataset.category;
-        renderLinks(searchInput.value, activeCategory);
+        const activeGroup = groupFilter.value;
+        renderLinks(searchInput.value, activeCategory, activeGroup);
         
         showToast('リンクを削除しました');
     }, 300);
 }
 
+// ローカルストレージのデータをリセットする関数
+function resetData() {
+    localStorage.clear();
+    showToast('すべてのデータをリセットしました');
+    setTimeout(() => {
+        window.location.reload();
+    }, 1500);
+}
+
+// CSV形式のデータをインポートする関数
+function importFromCSV(csvData) {
+    const lines = csvData.split('\n');
+    const links = getLinks();
+    const existingUrls = new Set(links.map(link => link.url));
+    let importCount = 0;
+    let skipCount = 0;
+    
+    const importToSelectedCategory = importToCategory.checked;
+    const selectedCategory = importCategory.value;
+    
+    lines.forEach(line => {
+        if (!line.trim()) return; // 空行をスキップ
+        
+        // CSVフィールドを解析（簡易的な実装）
+        const fields = line.split(',').map(field => field.trim());
+        if (fields.length < 2) return; // 少なくともタイトルとURLが必要
+        
+        const title = fields[0];
+        const url = fields[1];
+        
+        // URLが既に存在する場合はスキップ（オプション）
+        if (skipDuplicates.checked && existingUrls.has(url)) {
+            skipCount++;
+            return;
+        }
+        
+        // 新しいリンクの作成
+        const newLink = {
+            id: 'link-' + Date.now() + '-' + importCount,
+            title: title,
+            url: url,
+            description: fields[2] || '',
+            category: importToSelectedCategory ? selectedCategory : (fields[3] || 'ツール'),
+            group: '',  // グループは常に空文字列
+            order: links.length + importCount
+        };
+        
+        links.push(newLink);
+        existingUrls.add(url);
+        importCount++;
+    });
+    
+    saveLinks(links);
+    showToast(`${importCount}件のリンクをインポートしました（${skipCount}件をスキップ）`);
+    
+    // 現在のフィルター状態を維持して再レンダリング
+    const activeCategory = document.querySelector('.category-filter.active').dataset.category;
+    renderLinks(searchInput.value, activeCategory, 'all');
+}
+
+// ブックマークHTMLからリンクをインポートする関数
+function importFromBookmarkHTML(html) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const links = getLinks();
+    const existingUrls = new Set(links.map(link => link.url));
+    let importCount = 0;
+    let skipCount = 0;
+    
+    const importToSelectedCategory = importToCategory.checked;
+    const selectedCategory = importCategory.value;
+    
+    // すべてのアンカータグを検索
+    const anchors = doc.querySelectorAll('a');
+    
+    anchors.forEach(anchor => {
+        const title = anchor.textContent.trim();
+        const url = anchor.getAttribute('href');
+        
+        if (!url || !title) return; // タイトルまたはURLがない場合はスキップ
+        
+        // URLが既に存在する場合はスキップ（オプション）
+        if (skipDuplicates.checked && existingUrls.has(url)) {
+            skipCount++;
+            return;
+        }
+        
+        // 新しいリンクの作成
+        const newLink = {
+            id: 'link-' + Date.now() + '-' + importCount,
+            title: title,
+            url: url,
+            description: anchor.getAttribute('description') || '',
+            category: importToSelectedCategory ? selectedCategory : 'ブックマーク',
+            group: '',  // グループは常に空文字列
+            order: links.length + importCount
+        };
+        
+        links.push(newLink);
+        existingUrls.add(url);
+        importCount++;
+    });
+    
+    saveLinks(links);
+    showToast(`${importCount}件のリンクをインポートしました（${skipCount}件をスキップ）`);
+    
+    // 現在のフィルター状態を維持して再レンダリング
+    const activeCategory = document.querySelector('.category-filter.active').dataset.category;
+    renderLinks(searchInput.value, activeCategory, 'all');
+}
+// テキスト形式のリンクをインポートする関数
+function importFromText(text) {
+    const lines = text.split('\n');
+    const links = getLinks();
+    const existingUrls = new Set(links.map(link => link.url));
+    let importCount = 0;
+    let skipCount = 0;
+    
+    const importToSelectedCategory = importToCategory.checked;
+    const selectedCategory = importCategory.value;
+    
+    lines.forEach(line => {
+        if (!line.trim()) return; // 空行をスキップ
+        
+        // 簡易的な解析（タイトル,URL）
+        const parts = line.split(',');
+        if (parts.length < 2) return;
+        
+        const title = parts[0].trim();
+        const url = parts[1].trim();
+        
+        // URLが既に存在する場合はスキップ（オプション）
+        if (skipDuplicates.checked && existingUrls.has(url)) {
+            skipCount++;
+            return;
+        }
+        
+        // 新しいリンクの作成
+        const newLink = {
+            id: 'link-' + Date.now() + '-' + importCount,
+            title: title,
+            url: url,
+            description: '',
+            category: importToSelectedCategory ? selectedCategory : 'ツール',
+            group: '',  // グループは常に空文字列
+            order: links.length + importCount
+        };
+        
+        links.push(newLink);
+        existingUrls.add(url);
+        importCount++;
+    });
+    
+    saveLinks(links);
+    showToast(`${importCount}件のリンクをインポートしました（${skipCount}件をスキップ）`);
+    
+    // 現在のフィルター状態を維持して再レンダリング
+    const activeCategory = document.querySelector('.category-filter.active').dataset.category;
+    renderLinks(searchInput.value, activeCategory, 'all');
+}
 // ユーティリティ：デバウンス関数
 function debounce(func, wait) {
     let timeout;
@@ -2846,334 +4388,6 @@ function debounce(func, wait) {
         timeout = setTimeout(() => func.apply(context, args), wait);
     };
 }
-
-// 時計とカレンダーの機能
-document.addEventListener('DOMContentLoaded', function() {
-  // HTML構造を変更 - 日付表示用の要素を追加
-  const timeDisplay = document.getElementById('timeDisplay');
-  // 親要素を取得
-  const currentTime = document.getElementById('currentTime');
-  
-  // 新しい構造を作成
-  const dateTimeContainer = document.createElement('div');
-  dateTimeContainer.className = 'date-time-container';
-  
-  // 日付表示用の要素
-  const dateDisplay = document.createElement('div');
-  dateDisplay.className = 'date-display';
-  dateDisplay.id = 'dateDisplay';
-  
-  // 時刻表示用の要素
-  const newTimeDisplay = document.createElement('div');
-  newTimeDisplay.className = 'time-display';
-  newTimeDisplay.id = 'timeDisplay';
-  
-  // 新しい構造に要素を追加
-  dateTimeContainer.appendChild(dateDisplay);
-  dateTimeContainer.appendChild(newTimeDisplay);
-  
-  // 元の時刻表示要素を削除し、新しい構造に置き換え
-  timeDisplay.parentNode.replaceChild(dateTimeContainer, timeDisplay);
-  
-  // 曜日の配列（日本語）
-  const weekdays = ['日', '月', '火', '水', '木', '金', '土'];
-  
-  // 現在時刻と日付を表示する関数
-  function updateClock() {
-    const now = new Date();
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const seconds = String(now.getSeconds()).padStart(2, '0');
-    
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const day = String(now.getDate()).padStart(2, '0');
-    const weekday = weekdays[now.getDay()];
-    
-    // 時刻を更新
-    const timeString = `${hours}:${minutes}:${seconds}`;
-    document.getElementById('timeDisplay').textContent = timeString;
-    
-    // 日付を更新
-    const dateString = `${year}年${month}月${day}日 (${weekday})`;
-    document.getElementById('dateDisplay').textContent = dateString;
-  }
-  
-  // 初回実行
-  updateClock();
-  
-  // 1秒ごとに時刻を更新
-  setInterval(updateClock, 1000);
-  
-  // カレンダー機能のコード
-  const calendarPopup = document.getElementById('calendarPopup');
-  
-  // 時計をクリックするとカレンダーを表示/非表示
-  currentTime.addEventListener('click', function() {
-    calendarPopup.classList.toggle('active');
-  });
-  
-  // ページ内の任意の場所をクリックするとカレンダーを閉じる
-  document.addEventListener('click', function(e) {
-    if (!currentTime.contains(e.target) && !calendarPopup.contains(e.target)) {
-      calendarPopup.classList.remove('active');
-    }
-  });
-  
-  // カレンダーの表示
-  renderCalendar(new Date());
-  
-  // 前月・次月ボタンのイベント設定
-  document.getElementById('prevMonth').addEventListener('click', function() {
-    const currentDate = new Date(document.getElementById('currentMonth').dataset.date);
-    currentDate.setMonth(currentDate.getMonth() - 1);
-    renderCalendar(currentDate);
-  });
-  
-  document.getElementById('nextMonth').addEventListener('click', function() {
-    const currentDate = new Date(document.getElementById('currentMonth').dataset.date);
-    currentDate.setMonth(currentDate.getMonth() + 1);
-    renderCalendar(currentDate);
-  });
-  
-  // カレンダーをレンダリングする関数
-  function renderCalendar(date) {
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    
-    // 月の最初の日と最後の日
-    const firstDay = new Date(year, month, 1);
-    const lastDay = new Date(year, month + 1, 0);
-    
-    // 月の表示を更新
-    const monthElement = document.getElementById('currentMonth');
-    monthElement.textContent = `${year}年${month + 1}月`;
-    monthElement.dataset.date = date.toISOString();
-    
-    // 日付グリッドをクリア - カレンダーグリッドを取得して、曜日ヘッダー以外をクリア
-    const calendarGrid = document.querySelector('.calendar-grid');
-    // 曜日ヘッダーを保持する
-    const weekdayHeaders = Array.from(calendarGrid.querySelectorAll('.weekday'));
-    calendarGrid.innerHTML = '';
-    
-    // 曜日ヘッダーを再追加
-    weekdayHeaders.forEach(header => {
-      calendarGrid.appendChild(header);
-    });
-    
-    // 前月の日を表示
-    const firstDayOfWeek = firstDay.getDay(); // 0:日曜日, 1:月曜日, ...
-    const prevMonthLastDay = new Date(year, month, 0).getDate();
-    
-    for (let i = 0; i < firstDayOfWeek; i++) {
-      const dayElement = document.createElement('div');
-      dayElement.className = 'date other-month';
-      dayElement.textContent = prevMonthLastDay - firstDayOfWeek + i + 1;
-      calendarGrid.appendChild(dayElement);
-    }
-    
-    // 当月の日を表示
-    const today = new Date();
-    for (let i = 1; i <= lastDay.getDate(); i++) {
-      const dayElement = document.createElement('div');
-      dayElement.className = 'date';
-      
-      // 土日の場合はweekendクラスを追加
-      const dayOfWeek = new Date(year, month, i).getDay();
-      if (dayOfWeek === 0 || dayOfWeek === 6) {
-        dayElement.classList.add('weekend');
-      }
-      
-      // 今日の日付には特別なクラスを追加
-      if (today.getFullYear() === year && today.getMonth() === month && today.getDate() === i) {
-        dayElement.classList.add('today');
-      }
-      
-      dayElement.textContent = i;
-      calendarGrid.appendChild(dayElement);
-    }
-    
-    // 翌月の日を表示（最大42マスになるまで）
-    const totalDaysDisplayed = firstDayOfWeek + lastDay.getDate();
-    const remainingCells = 42 - totalDaysDisplayed;
-    
-    for (let i = 1; i <= remainingCells; i++) {
-      const dayElement = document.createElement('div');
-      dayElement.className = 'date other-month';
-      dayElement.textContent = i;
-      calendarGrid.appendChild(dayElement);
-    }
-  }
-});
-
-// イベントリスナー設定
-
-// テーマ切り替え
-themeToggle.addEventListener('click', toggleTheme);
-
-// リンク追加ボタン
-addLinkBtn.addEventListener('click', () => openLinkModal());
-
-// 配置編集モードボタン
-editModeBtn.addEventListener('click', toggleEditMode);
-
-// リンクモーダルを閉じる
-closeModalBtn.addEventListener('click', closeLinkModal);
-linkModal.addEventListener('click', (e) => {
-    if (e.target === linkModal) {
-        closeLinkModal();
-    }
-});
-
-// アイコンモーダルを閉じる
-closeIconModalBtn.addEventListener('click', closeIconModal);
-iconModal.addEventListener('click', (e) => {
-    if (e.target === iconModal) {
-        closeIconModal();
-    }
-});
-
-// カテゴリー管理ボタン
-manageCategoriesBtn.addEventListener('click', openCategoryModal);
-
-// カテゴリーモーダルを閉じる
-closeCategoryModalBtn.addEventListener('click', closeCategoryModal);
-categoryModal.addEventListener('click', (e) => {
-    if (e.target === categoryModal) {
-        closeCategoryModal();
-    }
-});
-
-// カテゴリー追加ボタン
-addCategoryBtn.addEventListener('click', () => {
-    const name = newCategoryName.value.trim();
-    if (name) {
-        addCategory(name);
-        newCategoryName.value = '';
-    }
-});
-
-// フォーム送信イベント
-linkForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    const formData = {
-        id: document.getElementById('linkId').value,
-        title: document.getElementById('linkTitle').value.trim(),
-        url: document.getElementById('linkUrl').value.trim(),
-        description: document.getElementById('linkDescription').value.trim(),
-        category: document.getElementById('linkCategory').value
-    };
-    
-    saveLink(formData);
-    closeLinkModal();
-});
-
-// 検索機能
-searchInput.addEventListener('input', debounce(function() {
-    const activeCategory = document.querySelector('.category-filter.active').dataset.category;
-    renderLinks(this.value, activeCategory);
-}, 300));
-
-// カテゴリーフィルター
-categoryFilters.addEventListener('click', (e) => {
-    if (e.target.classList.contains('category-filter') || e.target.parentElement.classList.contains('category-filter')) {
-        const filterBtn = e.target.classList.contains('category-filter') ? e.target : e.target.parentElement;
-        const category = filterBtn.dataset.category;
-        
-        // アクティブクラスを切り替え
-        document.querySelectorAll('.category-filter').forEach(btn => {
-            btn.classList.remove('active');
-        });
-        filterBtn.classList.add('active');
-        
-        // フィルタリングして表示
-        renderLinks(searchInput.value, category);
-    }
-});
-
-// キーボードイベント（Escキーでモーダルを閉じる）
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-        if (linkModal.classList.contains('active')) {
-            closeLinkModal();
-        }
-        if (categoryModal.classList.contains('active')) {
-            closeCategoryModal();
-        }
-        if (iconModal.classList.contains('active')) {
-            closeIconModal();
-        }
-        if (isEditMode) {
-            toggleEditMode();
-        }
-    }
-});
-
-// エンターキーでカテゴリー追加
-newCategoryName.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-        e.preventDefault();
-        const name = newCategoryName.value.trim();
-        if (name) {
-            addCategory(name);
-            newCategoryName.value = '';
-        }
-    }
-});
-
-// 初期表示
-document.addEventListener('DOMContentLoaded', () => {
-    applyTheme();
-    renderCategoryFilters();
-    renderLinks();
-// リセット機能
-const resetDataBtn = document.getElementById('resetDataBtn');
-const resetModal = document.getElementById('resetModal');
-const closeResetModalBtn = document.getElementById('closeResetModalBtn');
-const cancelResetBtn = document.getElementById('cancelResetBtn');
-const confirmResetBtn = document.getElementById('confirmResetBtn');
-
-// リセットボタンクリック時
-resetDataBtn.addEventListener('click', () => {
-    resetModal.classList.add('active');
-});
-
-// リセットモーダルを閉じる
-function closeResetModal() {
-    resetModal.classList.remove('active');
-}
-
-closeResetModalBtn.addEventListener('click', closeResetModal);
-cancelResetBtn.addEventListener('click', closeResetModal);
-resetModal.addEventListener('click', (e) => {
-    if (e.target === resetModal) {
-        closeResetModal();
-    }
-});
-
-// リセット確認ボタン
-confirmResetBtn.addEventListener('click', () => {
-    // ローカルストレージをクリア
-    localStorage.clear();
-    
-    // ページを再読み込み
-    showToast('すべてのデータをリセットしました');
-    setTimeout(() => {
-        window.location.reload();
-    }, 1500);
-    
-    closeResetModal();
-});
-// データエクスポート/インポート機能
-const exportDataBtn = document.getElementById('exportDataBtn');
-const importDataBtn = document.getElementById('importDataBtn');
-const importModal = document.getElementById('importModal');
-const closeImportModalBtn = document.getElementById('closeImportModalBtn');
-const cancelImportBtn = document.getElementById('cancelImportBtn');
-const confirmImportBtn = document.getElementById('confirmImportBtn');
-const importDataText = document.getElementById('importDataText');
-const mergeDataCheckbox = document.getElementById('mergeData');
 
 // ローカルストレージの全データを取得する関数
 function getAllLocalStorageData() {
@@ -3247,173 +4461,577 @@ function importData(jsonData, merge = true) {
     }
 }
 
-// インポートモーダルを開く
-importDataBtn.addEventListener('click', () => {
-    importModal.classList.add('active');
-    setTimeout(() => {
-        importDataText.focus();
-    }, 100);
-});
-
-// インポートモーダルを閉じる
-function closeImportModal() {
-    importModal.classList.remove('active');
-    importDataText.value = '';
+// 時計とカレンダーの機能
+function initClockAndCalendar() {
+    // 曜日の配列（日本語）
+    const weekdays = ['日', '月', '火', '水', '木', '金', '土'];
+    
+    // 現在時刻と日付を表示する関数
+    function updateClock() {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const weekday = weekdays[now.getDay()];
+        
+        // 時刻を更新
+        const timeString = `${hours}:${minutes}:${seconds}`;
+        document.getElementById('timeDisplay').textContent = timeString;
+        
+        // 日付を更新
+        const dateString = `${year}年${month}月${day}日 (${weekday})`;
+        document.getElementById('dateDisplay').textContent = dateString;
+    }
+    
+    // 初回実行
+    updateClock();
+    
+    // 1秒ごとに時刻を更新
+    setInterval(updateClock, 1000);
+    
+    // カレンダー機能のコード
+    const calendarPopup = document.getElementById('calendarPopup');
+    const currentTime = document.getElementById('currentTime');
+    
+    // 時計をクリックするとカレンダーを表示/非表示
+    currentTime.addEventListener('click', function() {
+        calendarPopup.classList.toggle('active');
+    });
+    
+    // ページ内の任意の場所をクリックするとカレンダーを閉じる
+    document.addEventListener('click', function(e) {
+        if (!currentTime.contains(e.target) && !calendarPopup.contains(e.target)) {
+            calendarPopup.classList.remove('active');
+        }
+    });
+    
+    // カレンダーの表示
+    renderCalendar(new Date());
+    
+    // 前月・次月ボタンのイベント設定
+    document.getElementById('prevMonth').addEventListener('click', function() {
+        const currentDate = new Date(document.getElementById('currentMonth').dataset.date);
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        renderCalendar(currentDate);
+    });
+    
+    document.getElementById('nextMonth').addEventListener('click', function() {
+        const currentDate = new Date(document.getElementById('currentMonth').dataset.date);
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        renderCalendar(currentDate);
+    });
 }
 
-closeImportModalBtn.addEventListener('click', closeImportModal);
-cancelImportBtn.addEventListener('click', closeImportModal);
-importModal.addEventListener('click', (e) => {
-    if (e.target === importModal) {
-        closeImportModal();
+// カレンダーをレンダリングする関数
+function renderCalendar(date) {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    
+    // 月の最初の日と最後の日
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    
+    // 月の表示を更新
+    const monthElement = document.getElementById('currentMonth');
+    monthElement.textContent = `${year}年${month + 1}月`;
+    monthElement.dataset.date = date.toISOString();
+    
+    // 日付グリッドをクリア - カレンダーグリッドを取得して、曜日ヘッダー以外をクリア
+    const calendarGrid = document.querySelector('.calendar-grid');
+    // 曜日ヘッダーを保持する
+    const weekdayHeaders = Array.from(calendarGrid.querySelectorAll('.weekday'));
+    calendarGrid.innerHTML = '';
+    
+    // 曜日ヘッダーを再追加
+    weekdayHeaders.forEach(header => {
+        calendarGrid.appendChild(header);
+    });
+    
+    // 前月の日を表示
+    const firstDayOfWeek = firstDay.getDay(); // 0:日曜日, 1:月曜日, ...
+    const prevMonthLastDay = new Date(year, month, 0).getDate();
+    
+    for (let i = 0; i < firstDayOfWeek; i++) {
+        const dayElement = document.createElement('div');
+        dayElement.className = 'date other-month';
+        dayElement.textContent = prevMonthLastDay - firstDayOfWeek + i + 1;
+        calendarGrid.appendChild(dayElement);
+    }
+    
+    // 当月の日を表示
+    const today = new Date();
+    for (let i = 1; i <= lastDay.getDate(); i++) {
+        const dayElement = document.createElement('div');
+        dayElement.className = 'date';
+        
+        // 土日の場合はweekendクラスを追加
+        const dayOfWeek = new Date(year, month, i).getDay();
+        if (dayOfWeek === 0 || dayOfWeek === 6) {
+            dayElement.classList.add('weekend');
+        }
+        
+        // 今日の日付には特別なクラスを追加
+        if (today.getFullYear() === year && today.getMonth() === month && today.getDate() === i) {
+            dayElement.classList.add('today');
+        }
+        
+        dayElement.textContent = i;
+        calendarGrid.appendChild(dayElement);
+    }
+    
+    // 翌月の日を表示（最大42マスになるまで）
+    const totalDaysDisplayed = firstDayOfWeek + lastDay.getDate();
+    const remainingCells = 42 - totalDaysDisplayed;
+    
+    for (let i = 1; i <= remainingCells; i++) {
+        const dayElement = document.createElement('div');
+        dayElement.className = 'date other-month';
+        dayElement.textContent = i;
+        calendarGrid.appendChild(dayElement);
+    }
+}
+
+// 初期化関数に以下を追加
+function init() {
+    // テーマ設定を適用
+    applyThemeSettings(getThemeSettings());
+    
+    // カテゴリーフィルターを生成
+    renderCategoryFilters();
+    
+    // グループ関連のUIを非表示
+    document.querySelector('.group-controls').style.display = 'none';
+    
+    // リンク追加/編集フォームからグループ選択を非表示
+    document.querySelector('.form-group:has(#linkGroup)').style.display = 'none';
+    
+    // リンクを表示
+    renderLinks();
+    
+    // 時計とカレンダーを初期化
+    initClockAndCalendar();
+}
+
+// イベントリスナー設定
+
+// テーマ切り替え
+themeToggle.addEventListener('click', toggleTheme);
+
+// テーマ設定ボタン
+themeSettingsBtn.addEventListener('click', openThemeSettingsModal);
+closeThemeSettingsBtn.addEventListener('click', closeThemeSettingsModal);
+
+// テーマ設定フォーム
+darkModeBtn.addEventListener('click', () => {
+    const settings = getThemeSettings();
+    settings.mode = 'dark';
+    saveThemeSettings(settings);
+    applyThemeSettings(settings);
+    // フォームを更新して背景グラデーション設定を無効化
+    updateThemeSettingsForm(settings);
+});
+
+lightModeBtn.addEventListener('click', () => {
+    const settings = getThemeSettings();
+    settings.mode = 'light';
+    saveThemeSettings(settings);
+    applyThemeSettings(settings);
+    // フォームを更新して背景グラデーション設定を有効化
+    updateThemeSettingsForm(settings);
+});
+
+autoModeBtn.addEventListener('click', () => {
+    const settings = getThemeSettings();
+    settings.mode = 'auto';
+    saveThemeSettings(settings);
+    applyThemeSettings(settings);
+    // フォームを更新
+    updateThemeSettingsForm(settings);
+});
+
+// スライダーのリアルタイム更新
+blurStrength.addEventListener('input', () => {
+    blurValue.textContent = `${blurStrength.value}px`;
+});
+
+cardOpacity.addEventListener('input', () => {
+    opacityValue.textContent = `0.${cardOpacity.value}`;
+});
+
+animationSpeed.addEventListener('input', () => {
+    if (animationSpeed.value <= 5) {
+        speedValue.textContent = '遅い';
+    } else if (animationSpeed.value <= 10) {
+        speedValue.textContent = '普通';
+    } else {
+        speedValue.textContent = '速い';
     }
 });
 
-// エクスポートボタンのイベント
+// プリセットボタン
+presetBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const preset = btn.dataset.preset;
+        if (themePresets[preset]) {
+            updateThemeSettingsForm(themePresets[preset]);
+        }
+    });
+});
+
+// テーマ設定の適用・リセット
+applyThemeBtn.addEventListener('click', () => {
+    const settings = {
+        mode: document.querySelector('.theme-mode-btn.active')?.id === 'lightModeBtn' ? 'light' : 
+              document.querySelector('.theme-mode-btn.active')?.id === 'darkModeBtn' ? 'dark' : 'auto',
+        primaryColor: primaryColor.value,
+        bgGradient1: bgGradient1.value,
+        bgGradient2: bgGradient2.value,
+        textColor: textColor.value,
+        blurStrength: parseInt(blurStrength.value),
+        cardOpacity: parseInt(cardOpacity.value),
+        animationSpeed: parseInt(animationSpeed.value),
+        fontSize: fontSize.value
+    };
+    
+    saveThemeSettings(settings);
+    applyThemeSettings(settings);
+    closeThemeSettingsModal();
+    showToast('テーマ設定を適用しました');
+});
+
+resetThemeBtn.addEventListener('click', () => {
+    saveThemeSettings(defaultThemeSettings);
+    applyThemeSettings(defaultThemeSettings);
+    updateThemeSettingsForm(defaultThemeSettings);
+    showToast('テーマ設定をリセットしました');
+});
+
+// 一括インポートモーダル操作
+bulkImportBtn.addEventListener('click', openBulkImportModal);
+closeBulkImportBtn.addEventListener('click', closeBulkImportModal);
+cancelImportBtn.addEventListener('click', closeBulkImportModal);
+
+// タブ切り替え
+importTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+        
+        // タブの切り替え
+        importTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        // コンテンツの切り替え
+        importContents.forEach(content => {
+            content.classList.remove('active');
+            if (content.id === `${target}Import`) {
+                content.classList.add('active');
+            }
+        });
+    });
+});
+
+// CSVファイル選択時のプレビュー
+csvFile.addEventListener('change', () => {
+    const file = csvFile.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const content = e.target.result;
+            // プレビューに先頭10行を表示
+            const lines = content.split('\n').slice(0, 10);
+            csvPreview.textContent = lines.join('\n');
+        };
+        reader.readAsText(file);
+    }
+});
+
+// ブックマークファイル選択時のプレビュー
+bookmarkFile.addEventListener('change', () => {
+    const file = bookmarkFile.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const content = e.target.result;
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(content, 'text/html');
+            
+            // 先頭10個のリンクを表示
+            const anchors = Array.from(doc.querySelectorAll('a')).slice(0, 10);
+            let preview = '';
+            
+            anchors.forEach(anchor => {
+                preview += `${anchor.textContent} - ${anchor.href}\n`;
+            });
+            
+            bookmarkPreview.textContent = preview;
+        };
+        reader.readAsText(file);
+    }
+});
+
+// インポート処理
+processImportBtn.addEventListener('click', () => {
+    // アクティブなタブを取得
+    const activeTab = document.querySelector('.import-tab.active').dataset.tab;
+    
+    switch (activeTab) {
+        case 'csv':
+            const csvFileElement = document.getElementById('csvFile');
+            if (csvFileElement.files.length > 0) {
+                const file = csvFileElement.files[0];
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    importFromCSV(e.target.result);
+                    closeBulkImportModal();
+                };
+                reader.readAsText(file);
+            } else {
+                showToast('CSVファイルを選択してください');
+            }
+            break;
+            
+        case 'bookmark':
+            const bookmarkFileElement = document.getElementById('bookmarkFile');
+            if (bookmarkFileElement.files.length > 0) {
+                const file = bookmarkFileElement.files[0];
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    importFromBookmarkHTML(e.target.result);
+                    closeBulkImportModal();
+                };
+                reader.readAsText(file);
+            } else {
+                showToast('ブックマークファイルを選択してください');
+            }
+            break;
+            
+        case 'text':
+            const text = document.getElementById('importText').value;
+            if (text.trim()) {
+                importFromText(text);
+                closeBulkImportModal();
+            } else {
+                showToast('インポートするテキストを入力してください');
+            }
+            break;
+    }
+});
+// HTML内の group-controls 要素を非表示にする
+document.querySelector('.group-controls').style.display = 'none';
+// リンク追加ボタン
+addLinkBtn.addEventListener('click', () => openLinkModal());
+
+// 配置編集モードボタン
+editModeBtn.addEventListener('click', toggleEditMode);
+
+// リンクモーダルを閉じる
+closeModalBtn.addEventListener('click', closeLinkModal);
+linkModal.addEventListener('click', (e) => {
+    if (e.target === linkModal) {
+        closeLinkModal();
+    }
+});
+
+// アイコンモーダルを閉じる
+closeIconModalBtn.addEventListener('click', closeIconModal);
+iconModal.addEventListener('click', (e) => {
+    if (e.target === iconModal) {
+        closeIconModal();
+    }
+});
+
+// カテゴリー管理ボタン
+manageCategoriesBtn.addEventListener('click', openCategoryModal);
+
+// カテゴリーモーダルを閉じる
+closeCategoryModalBtn.addEventListener('click', closeCategoryModal);
+categoryModal.addEventListener('click', (e) => {
+    if (e.target === categoryModal) {
+        closeCategoryModal();
+    }
+});
+
+// グループ管理ボタン
+manageGroupsBtn.addEventListener('click', openGroupModal);
+
+// グループモーダルを閉じる
+closeGroupModalBtn.addEventListener('click', closeGroupModal);
+groupModal.addEventListener('click', (e) => {
+    if (e.target === groupModal) {
+        closeGroupModal();
+    }
+});
+
+// カテゴリー追加ボタン
+addCategoryBtn.addEventListener('click', () => {
+    const name = newCategoryName.value.trim();
+    if (name) {
+        addCategory(name);
+        newCategoryName.value = '';
+    }
+});
+
+// グループ追加ボタン
+addGroupBtn.addEventListener('click', () => {
+    const name = newGroupName.value.trim();
+    const color = newGroupColor.value;
+    if (name) {
+        addGroup(name, color);
+        newGroupName.value = '';
+    }
+});
+
+// フォーム送信イベント
+linkForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const formData = {
+        id: document.getElementById('linkId').value,
+        title: document.getElementById('linkTitle').value.trim(),
+        url: document.getElementById('linkUrl').value.trim(),
+        description: document.getElementById('linkDescription').value.trim(),
+        category: document.getElementById('linkCategory').value,
+        group: document.getElementById('linkGroup').value
+    };
+    
+    saveLink(formData);
+    closeLinkModal();
+});
+
+// 検索機能
+searchInput.addEventListener('input', debounce(function() {
+    const activeCategory = document.querySelector('.category-filter.active').dataset.category;
+    const activeGroup = groupFilter.value;
+    renderLinks(this.value, activeCategory, activeGroup);
+}, 300));
+
+// カテゴリーフィルター
+categoryFilters.addEventListener('click', (e) => {
+    if (e.target.classList.contains('category-filter') || e.target.parentElement.classList.contains('category-filter')) {
+        const filterBtn = e.target.classList.contains('category-filter') ? e.target : e.target.parentElement;
+        const category = filterBtn.dataset.category;
+        
+        // アクティブクラスを切り替え
+        document.querySelectorAll('.category-filter').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        filterBtn.classList.add('active');
+        
+        // フィルタリングして表示
+        renderLinks(searchInput.value, category, groupFilter.value);
+    }
+});
+
+// グループフィルター
+groupFilter.addEventListener('change', () => {
+    const activeCategory = document.querySelector('.category-filter.active').dataset.category;
+    renderLinks(searchInput.value, activeCategory, groupFilter.value);
+});
+
+// キーボードイベント（Escキーでモーダルを閉じる）
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        if (linkModal.classList.contains('active')) {
+            closeLinkModal();
+        }
+        if (categoryModal.classList.contains('active')) {
+            closeCategoryModal();
+        }
+        if (groupModal.classList.contains('active')) {
+            closeGroupModal();
+        }
+        if (iconModal.classList.contains('active')) {
+            closeIconModal();
+        }
+        if (themeSettingsModal.classList.contains('active')) {
+            closeThemeSettingsModal();
+        }
+        if (bulkImportModal.classList.contains('active')) {
+            closeBulkImportModal();
+        }
+        if (isEditMode) {
+            toggleEditMode();
+        }
+    }
+});
+
+// エンターキーでカテゴリー追加
+newCategoryName.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        const name = newCategoryName.value.trim();
+        if (name) {
+            addCategory(name);
+            newCategoryName.value = '';
+        }
+    }
+});
+
+// エンターキーでグループ追加
+newGroupName.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        const name = newGroupName.value.trim();
+        const color = newGroupColor.value;
+        if (name) {
+            addGroup(name, color);
+            newGroupName.value = '';
+        }
+    }
+});
+
+// リセット関連
+resetDataBtn.addEventListener('click', () => {
+    resetModal.classList.add('active');
+});
+
+closeResetModalBtn.addEventListener('click', () => {
+    resetModal.classList.remove('active');
+});
+
+cancelResetBtn.addEventListener('click', () => {
+    resetModal.classList.remove('active');
+});
+
+confirmResetBtn.addEventListener('click', () => {
+    resetData();
+    resetModal.classList.remove('active');
+});
+
+// データエクスポート/インポート関連
 exportDataBtn.addEventListener('click', exportData);
 
-// インポート確認ボタンのイベント
-confirmImportBtn.addEventListener('click', () => {
-    const jsonData = importDataText.value.trim();
-    if (!jsonData) {
-        showToast('インポートするデータを入力してください');
-        return;
-    }
+importDataBtn.addEventListener('click', () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json';
     
-    // データの検証
-    try {
-        JSON.parse(jsonData);
-    } catch (e) {
-        showToast('無効なJSONデータです。データ形式を確認してください');
-        return;
-    }
+    input.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const data = e.target.result;
+                    importData(data, true);
+                } catch (err) {
+                    showToast('インポート中にエラーが発生しました');
+                    console.error(err);
+                }
+            };
+            reader.readAsText(file);
+        }
+    });
     
-    const merge = mergeDataCheckbox.checked;
-    importData(jsonData, merge);
-    closeImportModal();
+    input.click();
 });
 
-// ファイルドロップとペースト機能
-importDataText.addEventListener('paste', (e) => {
-    // テキストエリアへの通常のペーストを許可
-});
-
-// Ctrl+V でのインポート（テキストエリア外でのペースト）
-document.addEventListener('keydown', (e) => {
-    if (e.ctrlKey && e.key === 'v' && !importModal.classList.contains('active')) {
-        navigator.clipboard.readText().then(text => {
-            try {
-                // JSONデータかどうかをチェック
-                JSON.parse(text);
-                
-                // 有効なJSONならインポートモーダルを開いてデータを設定
-                importModal.classList.add('active');
-                importDataText.value = text;
-            } catch (e) {
-                // JSONでない場合は何もしない
-            }
-        }).catch(err => {
-            console.error('Failed to read clipboard contents: ', err);
-        });
-    }
-});
-});
+// 初期化
+document.addEventListener('DOMContentLoaded', init);
     </script>
-<!-- リセットボタン -->
-<button id="resetDataBtn" class="reset-data-btn" title="データをリセット">
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M3 6h18"></path>
-        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
-        <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-        <line x1="10" y1="11" x2="10" y2="17"></line>
-        <line x1="14" y1="11" x2="14" y2="17"></line>
-    </svg>
-</button>
-
-<!-- リセット確認モーダル -->
-<div id="resetModal" class="modal-overlay">
-    <div class="modal">
-        <div class="modal-header">
-            <div class="modal-title">
-                <div class="modal-title-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon>
-                        <line x1="12" y1="8" x2="12" y2="12"></line>
-                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                    </svg>
-                </div>
-                <span>データをリセット</span>
-            </div>
-            <button id="closeResetModalBtn" class="modal-close">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-            </button>
-        </div>
-        <p>すべてのデータ（リンク、カテゴリー、設定など）をリセットしてもよろしいですか？<br>この操作は元に戻すことができません。</p>
-        <div class="reset-modal-actions">
-            <button id="cancelResetBtn" class="btn btn-cancel">キャンセル</button>
-            <button id="confirmResetBtn" class="btn btn-danger">すべて削除</button>
-        </div>
-    </div>
-</div>
-<!-- データのエクスポート/インポートボタン -->
-<div class="data-transfer-buttons">
-    <button id="exportDataBtn" class="data-btn export-btn" title="データをエクスポート">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
-        </svg>
-        <span class="btn-text">エクスポート</span>
-    </button>
-    <button id="importDataBtn" class="data-btn import-btn" title="データをインポート">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="17 8 12 3 7 8"></polyline>
-            <line x1="12" y1="3" x2="12" y2="15"></line>
-        </svg>
-        <span class="btn-text">インポート</span>
-    </button>
-</div>
-
-<!-- インポートモーダル -->
-<div id="importModal" class="modal-overlay">
-    <div class="modal">
-        <div class="modal-header">
-            <div class="modal-title">
-                <div class="modal-title-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                        <polyline points="17 8 12 3 7 8"></polyline>
-                        <line x1="12" y1="3" x2="12" y2="15"></line>
-                    </svg>
-                </div>
-                <span>データをインポート</span>
-            </div>
-            <button id="closeImportModalBtn" class="modal-close">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-            </button>
-        </div>
-        <p class="import-instructions">以下にエクスポートしたJSONデータを貼り付けてください。</p>
-        <div class="form-group">
-            <textarea id="importDataText" class="form-input form-textarea" rows="10" placeholder='{"portalLinks":[...]}' required></textarea>
-        </div>
-        <div class="import-options">
-            <label class="import-option">
-                <input type="checkbox" id="mergeData" checked>
-                <span>既存のデータと統合する（オフにすると完全に置き換えます）</span>
-            </label>
-        </div>
-        <div class="import-modal-actions">
-            <button id="cancelImportBtn" class="btn btn-cancel">キャンセル</button>
-            <button id="confirmImportBtn" class="btn btn-primary">インポート</button>
-        </div>
-    </div>
-</div>
 </body>
 </html>
