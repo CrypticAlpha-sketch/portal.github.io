@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ポータル</title>
     <style>
 /* システムフォントスタックを使用 */
@@ -40,18 +40,11 @@
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow-x: hidden;
-    position: relative;
-}
-
 body {
     min-height: 100vh;
-    min-height: -webkit-fill-available;
+    overflow: hidden;
+    color: var(--text-color);
+    font-size: var(--font-size);
 }
 
 body.font-small {
@@ -211,11 +204,9 @@ body.font-large {
 .container {
     width: 100%;
     height: 100vh;
-    height: -webkit-fill-available;
     display: flex;
     flex-direction: column;
     position: relative;
-    overflow: hidden;
 }
 
 header {
@@ -1702,14 +1693,6 @@ h1 {
     background: rgba(79, 70, 229, 0.3);
 }
 
-.bulk-import-btn {
-    background: rgba(245, 158, 11, 0.2); /* オレンジ色 */
-    border: 1px solid rgba(245, 158, 11, 0.3);
-}
-
-.bulk-import-btn:hover {
-    background: rgba(245, 158, 11, 0.3);
-}
 
 /* リセットボタン */
 .reset-data-btn {
@@ -1737,118 +1720,88 @@ h1 {
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
-/* モバイル対応 */
-/* モバイル対応 */
-@media screen and (max-width: 768px) {
-    html {
-        height: 100%;
-        overflow: hidden;
-    }
-    
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
     body {
-        margin: 0;
-        padding: 0;
-        height: 100vh;
-        height: calc(var(--vh, 1vh) * 100);
-        overflow: hidden;
-        position: fixed;
-        width: 100%;
+        font-size: 14px;
     }
     
     .container {
-        width: 100%;
-        height: 100vh;
-        height: calc(var(--vh, 1vh) * 100);
-        display: flex;
-        flex-direction: column;
-        position: relative;
-        overflow: hidden;
+        padding: 0;
     }
     
-    /* ヘッダー部分 */
     header {
-        height: auto;
-        padding: 1rem;
-        margin-top: 60px; /* 時計とボタン用のスペース */
+        height: 60px;
+        padding: 0.5rem;
     }
     
     .header-content {
-        padding: 0.8rem 1.5rem;
-        text-align: center;
+        padding: 0.6rem 1rem;
     }
     
     h1 {
         font-size: 1.5rem;
     }
     
-    /* 固定位置の要素 */
+    /* 時計を小さく */
     .clock-container {
-        position: fixed;
         top: 10px;
         left: 10px;
-        z-index: 1000;
     }
     
+    .current-time {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+    
+    /* テーマ切り替えボタンを小さく */
     .theme-toggle {
-        position: fixed;
         top: 10px;
         right: 10px;
-        z-index: 1000;
-        width: 40px;
-        height: 40px;
+        width: 36px;
+        height: 36px;
     }
     
     .theme-settings-btn {
-        position: fixed;
         top: 10px;
-        right: 60px;
-        z-index: 1000;
-        width: 40px;
-        height: 40px;
+        right: 56px;
+        width: 36px;
+        height: 36px;
     }
     
-    /* メインコンテンツ */
+    /* メインコンテンツエリア */
     .content {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        padding: 1rem;
-        overflow: hidden;
-        height: calc(100vh - 80px);
-        height: calc(calc(var(--vh, 1vh) * 100) - 80px);
+        padding: 0.5rem;
+        max-height: calc(100vh - 60px);
     }
     
-    /* 検索とフィルター */
     .controls {
         margin-bottom: 1rem;
-        width: 100%;
+        gap: 0.5rem;
     }
     
     .search-container {
-        width: 100%;
-        margin-bottom: 0.5rem;
+        max-width: 100%;
     }
     
     .search-input {
-        width: 100%;
-        font-size: 16px; /* iOS自動ズーム防止 */
+        padding: 0.8rem 0.8rem 0.8rem 2.5rem;
+        font-size: 16px; /* iOSの自動ズームを防ぐ */
     }
     
-    .category-controls {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        width: 100%;
+    .search-icon {
+        left: 0.8rem;
     }
     
+    /* カテゴリーフィルター */
     .category-filters {
-        flex: 1;
-        display: flex;
-        gap: 0.5rem;
         overflow-x: auto;
+        justify-content: flex-start;
+        padding-bottom: 0.5rem;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
-        padding-bottom: 0.5rem;
+        gap: 0.5rem;
+        white-space: nowrap;
     }
     
     .category-filters::-webkit-scrollbar {
@@ -1856,138 +1809,241 @@ h1 {
     }
     
     .category-filter {
-        white-space: nowrap;
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
         flex-shrink: 0;
+    }
+    
+    .manage-categories-btn {
+        width: 32px;
+        height: 32px;
     }
     
     /* リンクグリッド */
     .links-grid {
-        flex: 1;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-        padding-bottom: 100px; /* 下部ボタン用のスペース */
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+        max-height: calc(100vh - 180px);
+        padding: 0.5rem;
     }
     
     .link-card {
-        width: 100%;
-        margin-bottom: 1rem;
-        box-sizing: border-box;
+        padding: 0.8rem;
+        min-height: 150px;
     }
     
-    /* 下部のボタン */
+    .link-icon {
+        width: 36px;
+        height: 36px;
+        margin-bottom: 0.5rem;
+    }
+    
+    .link-title {
+        font-size: 1rem;
+    }
+    
+    .link-description {
+        font-size: 0.8rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .visit-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+    
+    .icon-btn {
+        width: 28px;
+        height: 28px;
+    }
+    
+    /* フローティングボタン */
     .floating-btn {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 1000;
-        width: 56px;
-        height: 56px;
+        width: 50px;
+        height: 50px;
+        bottom: 1.5rem;
+        right: 1.5rem;
     }
     
     .edit-mode-btn {
-        position: fixed;
-        bottom: 20px;
-        left: 20px;
-        z-index: 1000;
-        width: 40px;
-        height: 40px;
+        bottom: 1.5rem;
+        left: 1.5rem;
     }
     
     .reset-data-btn {
-        position: fixed;
-        bottom: 20px;
-        left: 70px;
-        z-index: 1000;
-        width: 40px;
-        height: 40px;
+        bottom: 1.5rem;
+        left: 5.5rem;
+        width: 36px;
+        height: 36px;
     }
     
+    /* データ転送ボタン */
     .data-transfer-buttons {
-        position: fixed;
-        bottom: 80px;
-        right: 20px;
-        z-index: 1000;
-        display: flex;
+        bottom: 5.5rem;
+        right: 1.5rem;
         flex-direction: column;
-        gap: 0.5rem;
+        gap: 0.8rem;
     }
     
     .data-btn {
         width: 40px;
         height: 40px;
-        border-radius: 50%;
         padding: 0;
-        display: flex;
-        align-items: center;
         justify-content: center;
+        border-radius: 50%;
     }
     
     .btn-text {
         display: none;
     }
     
-    /* 背景要素の調整 */
-    .background, .circles {
-        position: fixed;
-        width: 100%;
-        height: 100%;
+    /* モーダル */
+    .modal {
+        width: 95%;
+        padding: 1.5rem;
+        margin: 1rem;
     }
     
-    /* オーバーフロー対策 */
-    * {
-        box-sizing: border-box;
+    .modal-title {
+        font-size: 1.2rem;
+    }
+    
+    .form-input {
+        font-size: 16px; /* iOSの自動ズームを防ぐ */
+        padding: 0.6rem 0.8rem;
+    }
+    
+    .btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    /* テーマ設定モーダル */
+    .theme-colors {
+        grid-template-columns: 1fr;
+    }
+    
+    /* カレンダーポップアップ */
+    .calendar-popup {
+        width: 280px;
+        left: 10px;
+    }
+    
+    /* トースト */
+    .toast {
+        bottom: 1rem;
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+        width: 90%;
+        max-width: 300px;
     }
 }
 
-/* iOSのSafariとChromeの対応 */
+/* さらに小さい画面用 (iPhone SE等) */
+@media (max-width: 375px) {
+    h1 {
+        font-size: 1.3rem;
+    }
+    
+    .category-filter {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+    
+    .link-card {
+        padding: 0.7rem;
+    }
+    
+    .floating-btn {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .data-btn {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+/* iOS特有の対応 */
 @supports (-webkit-touch-callout: none) {
-    /* セーフエリアへの対応 */
+    /* iOSのセーフエリア対応 */
     .container {
-        padding-top: env(safe-area-inset-top);
         padding-bottom: env(safe-area-inset-bottom);
     }
     
     .floating-btn, .edit-mode-btn, .reset-data-btn {
-        bottom: calc(20px + env(safe-area-inset-bottom));
+        bottom: calc(1.5rem + env(safe-area-inset-bottom));
     }
     
     .data-transfer-buttons {
-        bottom: calc(80px + env(safe-area-inset-bottom));
+        bottom: calc(5.5rem + env(safe-area-inset-bottom));
     }
     
-    /* 固定位置要素の調整 */
-    .clock-container, .theme-toggle, .theme-settings-btn {
-        top: calc(15px + env(safe-area-inset-top));
+    /* スクロールの最適化 */
+    .links-grid, .category-filters {
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* タップハイライトの除去 */
+    button, a, .link-card {
+        -webkit-tap-highlight-color: transparent;
     }
 }
 
-/* Chrome特有の修正 */
-@supports (-webkit-appearance: none) and (not (-webkit-touch-callout: none)) {
-    .container {
-        height: 100vh;
+/* 横向き対応 */
+@media (max-width: 768px) and (orientation: landscape) {
+    .content {
+        max-height: calc(100vh - 50px);
+    }
+    
+    .links-grid {
+        grid-template-columns: repeat(2, 1fr);
+        max-height: calc(100vh - 120px);
+    }
+    
+    header {
+        height: 50px;
+    }
+    
+    .floating-btn, .edit-mode-btn {
+        width: 40px;
+        height: 40px;
     }
 }
 
-/* iOS Safe Area対応 */
+/* タッチデバイス用の調整 */
+@media (hover: none) and (pointer: coarse) {
+    /* ホバーエフェクトを無効化 */
+    .link-card:hover, .btn:hover, .icon-btn:hover {
+        transform: none;
+    }
+    
+    /* タップ領域を大きく */
+    .icon-btn, .position-btn {
+        min-width: 44px;
+        min-height: 44px;
+    }
+    
+    /* スクロールバーを非表示 */
+    ::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+/* ノッチ対応 */
 @supports (padding: max(0px)) {
-    @media screen and (max-width: 768px) {
-        .clock-container,
-        .theme-toggle,
-        .theme-settings-btn {
-            top: max(10px, env(safe-area-inset-top));
-        }
-        
-        .floating-btn,
-        .edit-mode-btn,
-        .reset-data-btn {
-            bottom: max(20px, env(safe-area-inset-bottom));
-        }
-        
-        .data-transfer-buttons {
-            bottom: max(80px, calc(env(safe-area-inset-bottom) + 60px));
-        }
+    .container {
+        padding-left: max(0.5rem, env(safe-area-inset-left));
+        padding-right: max(0.5rem, env(safe-area-inset-right));
+    }
+    
+    .modal {
+        margin-left: max(1rem, env(safe-area-inset-left));
+        margin-right: max(1rem, env(safe-area-inset-right));
     }
 }
+
     </style>
 </head>
 <body>
@@ -2431,85 +2487,98 @@ h1 {
         </div>
     </div>
     
-    <!-- 一括インポートモーダル -->
-    <div id="bulkImportModal" class="modal-overlay">
-        <div class="modal">
-            <div class="modal-header">
-                <div class="modal-title">
-                    <div class="modal-title-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                            <polyline points="17 8 12 3 7 8"></polyline>
-                            <line x1="12" y1="3" x2="12" y2="15"></line>
-                        </svg>
-                    </div>
-                    <span>リンクの一括インポート</span>
-                </div>
-                <button id="closeBulkImportBtn" class="modal-close">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
+<!-- 一括インポートモーダル -->
+<div id="bulkImportModal" class="modal-overlay">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title">
+                <div class="modal-title-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
                     </svg>
-                </button>
-            </div>
-            <div class="import-tabs">
-                <button class="import-tab active" data-tab="csv">CSVインポート</button>
-                <button class="import-tab" data-tab="bookmark">ブックマークインポート</button>
-                <button class="import-tab" data-tab="text">テキストインポート</button>
-            </div>
-            
-            <div class="import-content active" id="csvImport">
-                <p class="import-instructions">CSVファイルからリンクをインポートします。<br>CSVフォーマット: タイトル,URL,説明,カテゴリー</p>
-                <div class="form-group">
-                    <label for="csvFile" class="form-label">CSVファイル</label>
-                    <input type="file" id="csvFile" class="form-input file-input" accept=".csv">
                 </div>
-                <div class="csv-preview">
-                    <h4>プレビュー</h4>
-                    <div id="csvPreview" class="preview-container"></div>
-                </div>
+                <span>リンクの一括インポート</span>
             </div>
-            
-            <div class="import-content" id="bookmarkImport">
-                <p class="import-instructions">HTMLブックマークファイルからリンクをインポートします。<br>ブラウザの「ブックマークをエクスポート」機能で出力したファイルを使用してください。</p>
-                <div class="form-group">
-                    <label for="bookmarkFile" class="form-label">HTMLブックマークファイル</label>
-                    <input type="file" id="bookmarkFile" class="form-input file-input" accept=".html,.htm">
-                </div>
-                <div class="bookmark-preview">
-                    <h4>プレビュー</h4>
-                    <div id="bookmarkPreview" class="preview-container"></div>
-                </div>
+            <button id="closeBulkImportBtn" class="modal-close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="import-tabs">
+            <button class="import-tab active" data-tab="csv">CSVインポート</button>
+            <button class="import-tab" data-tab="bookmark">ブックマークインポート</button>
+            <button class="import-tab" data-tab="text">テキストインポート</button>
+            <button class="import-tab" data-tab="json">JSONファイル</button>
+        </div>
+        
+        <div class="import-content active" id="csvImport">
+            <p class="import-instructions">CSVファイルからリンクをインポートします。<br>CSVフォーマット: タイトル,URL,説明,カテゴリー</p>
+            <div class="form-group">
+                <label for="csvFile" class="form-label">CSVファイル</label>
+                <input type="file" id="csvFile" class="form-input file-input" accept=".csv">
             </div>
-            
-            <div class="import-content" id="textImport">
-                <p class="import-instructions">テキスト形式でリンクを一括入力します。<br>一行につき「タイトル,URL」の形式で入力してください。</p>
-                <div class="form-group">
-                    <label for="importText" class="form-label">リンクリスト</label>
-                    <textarea id="importText" class="form-input form-textarea" rows="10" placeholder="Google,https://www.google.com"></textarea>
-                </div>
-            </div>
-            
-<div class="import-options">
-    <label class="import-option">
-        <input type="checkbox" id="skipDuplicates" checked>
-        <span>重複するURLをスキップする</span>
-    </label>
-    <label class="import-option">
-        <input type="checkbox" id="importToCategory">
-        <span>すべてのリンクを特定のカテゴリーにインポート:</span>
-        <select id="importCategory" class="inline-select">
-            <!-- カテゴリーはJSで動的に生成 -->
-        </select>
-    </label>
-</div>
-            
-            <div class="modal-actions">
-                <button id="cancelImportBtn" class="btn btn-outline">キャンセル</button>
-                <button id="processImportBtn" class="btn btn-primary">インポート</button>
+            <div class="csv-preview">
+                <h4>プレビュー</h4>
+                <div id="csvPreview" class="preview-container"></div>
             </div>
         </div>
+        
+        <div class="import-content" id="bookmarkImport">
+            <p class="import-instructions">HTMLブックマークファイルからリンクをインポートします。<br>ブラウザの「ブックマークをエクスポート」機能で出力したファイルを使用してください。</p>
+            <div class="form-group">
+                <label for="bookmarkFile" class="form-label">HTMLブックマークファイル</label>
+                <input type="file" id="bookmarkFile" class="form-input file-input" accept=".html,.htm">
+            </div>
+            <div class="bookmark-preview">
+                <h4>プレビュー</h4>
+                <div id="bookmarkPreview" class="preview-container"></div>
+            </div>
+        </div>
+        
+        <div class="import-content" id="textImport">
+            <p class="import-instructions">テキスト形式でリンクを一括入力します。<br>一行につき「タイトル,URL」の形式で入力してください。</p>
+            <div class="form-group">
+                <label for="importText" class="form-label">リンクリスト</label>
+                <textarea id="importText" class="form-input form-textarea" rows="10" placeholder="Google,https://www.google.com"></textarea>
+            </div>
+        </div>
+        
+        <div class="import-content" id="jsonImport">
+            <p class="import-instructions">エクスポートしたJSONファイルからデータを復元します。</p>
+            <div class="form-group">
+                <label for="jsonFile" class="form-label">JSONファイル</label>
+                <input type="file" id="jsonFile" class="form-input file-input" accept=".json">
+            </div>
+            <p class="import-instructions">または、JSONデータを直接貼り付けてください：</p>
+            <div class="form-group">
+                <textarea id="jsonText" class="form-input form-textarea" rows="10" placeholder='{"portalLinks":[...]}'></textarea>
+            </div>
+        </div>
+        
+        <div class="import-options">
+            <label class="import-option">
+                <input type="checkbox" id="skipDuplicates" checked>
+                <span>重複するURLをスキップする</span>
+            </label>
+            <label class="import-option">
+                <input type="checkbox" id="importToCategory">
+                <span>すべてのリンクを特定のカテゴリーにインポート:</span>
+                <select id="importCategory" class="inline-select">
+                    <!-- カテゴリーはJSで動的に生成 -->
+                </select>
+            </label>
+        </div>
+        
+        <div class="modal-actions">
+            <button id="cancelImportBtn" class="btn btn-outline">キャンセル</button>
+            <button id="processImportBtn" class="btn btn-primary">インポート</button>
+        </div>
     </div>
+</div>
 
     <!-- トースト通知 -->
     <div id="toast" class="toast">
@@ -2539,15 +2608,6 @@ h1 {
                 <line x1="12" y1="3" x2="12" y2="15"></line>
             </svg>
             <span class="btn-text">インポート</span>
-        </button>
-        <button id="bulkImportBtn" class="data-btn bulk-import-btn" title="リンクを一括インポート">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="17 8 12 3 7 8"></polyline>
-                <line x1="12" y1="3" x2="12" y2="15"></line>
-                <line x1="8" y1="12" x2="16" y2="12"></line>
-            </svg>
-            <span class="btn-text">一括インポート</span>
         </button>
     </div>
     
@@ -2731,7 +2791,6 @@ const autoModeBtn = document.getElementById('autoModeBtn');
 const presetBtns = document.querySelectorAll('.preset-btn');
 
 // 一括インポートモーダル
-const bulkImportBtn = document.getElementById('bulkImportBtn');
 const bulkImportModal = document.getElementById('bulkImportModal');
 const closeBulkImportBtn = document.getElementById('closeBulkImportBtn');
 const importTabs = document.querySelectorAll('.import-tab');
@@ -4899,12 +4958,31 @@ resetThemeBtn.addEventListener('click', () => {
     showToast('テーマ設定をリセットしました');
 });
 
-// 一括インポートモーダル操作
-bulkImportBtn.addEventListener('click', openBulkImportModal);
+// インポートモーダル操作
+importDataBtn.addEventListener('click', openBulkImportModal);
 closeBulkImportBtn.addEventListener('click', closeBulkImportModal);
 cancelImportBtn.addEventListener('click', closeBulkImportModal);
 
 // タブ切り替え
+importTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+        
+        // タブの切り替え
+        importTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        // コンテンツの切り替え
+        importContents.forEach(content => {
+            content.classList.remove('active');
+            if (content.id === `${target}Import`) {
+                content.classList.add('active');
+            }
+        });
+    });
+});
+
+// タブ切り替え（既存のコードの後に追加）
 importTabs.forEach(tab => {
     tab.addEventListener('click', () => {
         const target = tab.dataset.tab;
@@ -5005,6 +5083,39 @@ processImportBtn.addEventListener('click', () => {
                 closeBulkImportModal();
             } else {
                 showToast('インポートするテキストを入力してください');
+            }
+            break;
+            
+        case 'json':
+            // JSONファイルまたはテキストからインポート
+            const jsonFileElement = document.getElementById('jsonFile');
+            const jsonTextElement = document.getElementById('jsonText');
+            
+            if (jsonFileElement.files.length > 0) {
+                // ファイルからインポート
+                const file = jsonFileElement.files[0];
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        importData(JSON.stringify(data), false); // 完全置き換え
+                        closeBulkImportModal();
+                    } catch (error) {
+                        showToast('JSONファイルの形式が正しくありません');
+                    }
+                };
+                reader.readAsText(file);
+            } else if (jsonTextElement.value.trim()) {
+                // テキストからインポート
+                try {
+                    const data = JSON.parse(jsonTextElement.value);
+                    importData(JSON.stringify(data), false); // 完全置き換え
+                    closeBulkImportModal();
+                } catch (error) {
+                    showToast('JSONデータの形式が正しくありません');
+                }
+            } else {
+                showToast('JSONファイルを選択するか、データを貼り付けてください');
             }
             break;
     }
@@ -5195,63 +5306,41 @@ confirmResetBtn.addEventListener('click', () => {
 exportDataBtn.addEventListener('click', exportData);
 
 importDataBtn.addEventListener('click', () => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = '.json';
-    
-    input.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                try {
-                    const data = e.target.result;
-                    importData(data, true);
-                } catch (err) {
-                    showToast('インポート中にエラーが発生しました');
-                    console.error(err);
-                }
-            };
-            reader.readAsText(file);
-        }
-    });
-    
-    input.click();
+    openBulkImportModal();
 });
 
-// モバイルChrome対策
-document.addEventListener('DOMContentLoaded', function() {
-    // ビューポートの高さを設定
-    function setViewportHeight() {
-        let vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
-    }
+// タッチデバイスの検出
+const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+if (isTouchDevice) {
+    // モバイルでの長押しを防ぐ
+    document.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+    });
     
-    setViewportHeight();
-    window.addEventListener('resize', setViewportHeight);
-    window.addEventListener('orientationchange', setViewportHeight);
+    // スクロール中のタッチイベントを最適化
+    let scrolling = false;
+    linksContainer.addEventListener('touchstart', () => {
+        scrolling = false;
+    });
     
-    // Chrome検出
-    const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    linksContainer.addEventListener('touchmove', () => {
+        scrolling = true;
+    });
     
-    if (isChrome && isMobile) {
-        document.body.classList.add('mobile-chrome');
-    }
-    
-    // iOS Chromeのバウンス効果を防ぐ
-    if (/CriOS/.test(navigator.userAgent)) {
-        document.body.style.position = 'fixed';
-        document.body.style.width = '100%';
-    }
-    
-    // スクロール制御
-    document.body.addEventListener('touchmove', function(e) {
-        if (!e.target.closest('.links-grid, .modal, .category-filters')) {
+    linksContainer.addEventListener('touchend', (e) => {
+        if (scrolling) {
             e.preventDefault();
         }
-    }, { passive: false });
-});
+    });
+}
+
+// iOSのバウンス効果を防ぐ
+document.body.addEventListener('touchmove', (e) => {
+    if (!e.target.closest('.links-grid, .category-filters, .modal')) {
+        e.preventDefault();
+    }
+}, { passive: false });
 
 // 初期化
 document.addEventListener('DOMContentLoaded', init);
