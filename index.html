@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>ポータル</title>
     <style>
 /* システムフォントスタックを使用 */
@@ -40,11 +40,18 @@
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    position: relative;
+}
+
 body {
     min-height: 100vh;
-    overflow: hidden;
-    color: var(--text-color);
-    font-size: var(--font-size);
+    min-height: -webkit-fill-available;
 }
 
 body.font-small {
@@ -204,9 +211,11 @@ body.font-large {
 .container {
     width: 100%;
     height: 100vh;
+    height: -webkit-fill-available;
     display: flex;
     flex-direction: column;
     position: relative;
+    overflow: hidden;
 }
 
 header {
@@ -1728,330 +1737,162 @@ h1 {
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
-/* レスポンシブ対応 */
 @media (max-width: 768px) {
-    body {
-        font-size: 14px;
-    }
-    
-    .container {
-        padding: 0;
-    }
-    
-    header {
-        height: 60px;
-        padding: 0.5rem;
-    }
-    
-    .header-content {
-        padding: 0.6rem 1rem;
-    }
-    
-    h1 {
-        font-size: 1.5rem;
-    }
-    
-    /* 時計を小さく */
+    /* 時計とボタンの位置調整 */
     .clock-container {
-        top: 10px;
-        left: 10px;
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        z-index: 1000;
     }
     
-    .current-time {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.9rem;
-    }
-    
-    /* テーマ切り替えボタンを小さく */
     .theme-toggle {
-        top: 10px;
-        right: 10px;
-        width: 36px;
-        height: 36px;
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        z-index: 1000;
     }
     
     .theme-settings-btn {
-        top: 10px;
-        right: 56px;
-        width: 36px;
-        height: 36px;
+        position: fixed;
+        top: 15px;
+        right: 65px;
+        z-index: 1000;
     }
     
-    /* メインコンテンツエリア */
+    /* ヘッダーの調整 */
+    header {
+        height: auto;
+        padding: 70px 1rem 1rem 1rem;
+        position: relative;
+    }
+    
+    .header-content {
+        margin: 0 auto;
+        width: auto;
+    }
+    
+    /* コンテンツエリアの調整 */
     .content {
-        padding: 0.5rem;
-        max-height: calc(100vh - 60px);
-    }
-    
-    .controls {
-        margin-bottom: 1rem;
-        gap: 0.5rem;
-    }
-    
-    .search-container {
-        max-width: 100%;
-    }
-    
-    .search-input {
-        padding: 0.8rem 0.8rem 0.8rem 2.5rem;
-        font-size: 16px; /* iOSの自動ズームを防ぐ */
-    }
-    
-    .search-icon {
-        left: 0.8rem;
-    }
-    
-    /* カテゴリーフィルター */
-    .category-filters {
-        overflow-x: auto;
-        justify-content: flex-start;
-        padding-bottom: 0.5rem;
+        flex: 1;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
         -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        gap: 0.5rem;
-        white-space: nowrap;
     }
     
-    .category-filters::-webkit-scrollbar {
-        display: none;
-    }
-    
-    .category-filter {
-        padding: 0.5rem 1rem;
-        font-size: 0.85rem;
-        flex-shrink: 0;
-    }
-    
-    .manage-categories-btn {
-        width: 32px;
-        height: 32px;
-    }
-    
-    /* リンクグリッド */
+    /* リンクグリッドの調整 */
     .links-grid {
         grid-template-columns: 1fr;
-        gap: 0.8rem;
-        max-height: calc(100vh - 180px);
-        padding: 0.5rem;
+        gap: 1rem;
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+        overflow-y: auto;
+        flex: 1;
     }
     
-    .link-card {
-        padding: 0.8rem;
-        min-height: 150px;
-    }
-    
-    .link-icon {
-        width: 36px;
-        height: 36px;
-        margin-bottom: 0.5rem;
-    }
-    
-    .link-title {
-        font-size: 1rem;
-    }
-    
-    .link-description {
-        font-size: 0.8rem;
-        margin-bottom: 0.8rem;
-    }
-    
-    .visit-btn {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.8rem;
-    }
-    
-    .icon-btn {
-        width: 28px;
-        height: 28px;
-    }
-    
-    /* フローティングボタン */
+    /* フローティングボタンの調整 */
     .floating-btn {
-        width: 50px;
-        height: 50px;
-        bottom: 1.5rem;
-        right: 1.5rem;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
     }
     
     .edit-mode-btn {
-        bottom: 1.5rem;
-        left: 1.5rem;
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        z-index: 1000;  
     }
     
     .reset-data-btn {
-        bottom: 1.5rem;
-        left: 5.5rem;
-        width: 36px;
-        height: 36px;
+        position: fixed;
+        bottom: 20px;
+        left: 70px;
+        z-index: 1000;
     }
     
-    /* データ転送ボタン */
     .data-transfer-buttons {
-        bottom: 5.5rem;
-        right: 1.5rem;
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        z-index: 1000;
         flex-direction: column;
-        gap: 0.8rem;
     }
     
-    .data-btn {
-        width: 40px;
-        height: 40px;
-        padding: 0;
-        justify-content: center;
-        border-radius: 50%;
+    /* モーダルの調整 */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2000;
     }
     
-    .btn-text {
-        display: none;
-    }
-    
-    /* モーダル */
     .modal {
-        width: 95%;
-        padding: 1.5rem;
+        width: calc(100% - 2rem);
+        max-width: 500px;
         margin: 1rem;
     }
-    
-    .modal-title {
-        font-size: 1.2rem;
-    }
-    
-    .form-input {
-        font-size: 16px; /* iOSの自動ズームを防ぐ */
-        padding: 0.6rem 0.8rem;
-    }
-    
-    .btn {
-        padding: 0.6rem 1rem;
-        font-size: 0.9rem;
-    }
-    
-    /* テーマ設定モーダル */
-    .theme-colors {
-        grid-template-columns: 1fr;
-    }
-    
-    /* カレンダーポップアップ */
-    .calendar-popup {
-        width: 280px;
-        left: 10px;
-    }
-    
-    /* トースト */
-    .toast {
-        bottom: 1rem;
-        padding: 0.6rem 1rem;
-        font-size: 0.9rem;
-        width: 90%;
-        max-width: 300px;
-    }
 }
 
-/* さらに小さい画面用 (iPhone SE等) */
-@media (max-width: 375px) {
-    h1 {
-        font-size: 1.3rem;
-    }
-    
-    .category-filter {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.8rem;
-    }
-    
-    .link-card {
-        padding: 0.7rem;
-    }
-    
-    .floating-btn {
-        width: 45px;
-        height: 45px;
-    }
-    
-    .data-btn {
-        width: 36px;
-        height: 36px;
-    }
-}
-
-/* iOS特有の対応 */
+/* iOSのSafariとChromeの対応 */
 @supports (-webkit-touch-callout: none) {
-    /* iOSのセーフエリア対応 */
+    /* セーフエリアへの対応 */
     .container {
+        padding-top: env(safe-area-inset-top);
         padding-bottom: env(safe-area-inset-bottom);
     }
     
     .floating-btn, .edit-mode-btn, .reset-data-btn {
-        bottom: calc(1.5rem + env(safe-area-inset-bottom));
+        bottom: calc(20px + env(safe-area-inset-bottom));
     }
     
     .data-transfer-buttons {
-        bottom: calc(5.5rem + env(safe-area-inset-bottom));
+        bottom: calc(80px + env(safe-area-inset-bottom));
     }
     
-    /* スクロールの最適化 */
-    .links-grid, .category-filters {
-        -webkit-overflow-scrolling: touch;
-    }
-    
-    /* タップハイライトの除去 */
-    button, a, .link-card {
-        -webkit-tap-highlight-color: transparent;
+    /* 固定位置要素の調整 */
+    .clock-container, .theme-toggle, .theme-settings-btn {
+        top: calc(15px + env(safe-area-inset-top));
     }
 }
 
-/* 横向き対応 */
-@media (max-width: 768px) and (orientation: landscape) {
-    .content {
-        max-height: calc(100vh - 50px);
-    }
-    
-    .links-grid {
-        grid-template-columns: repeat(2, 1fr);
-        max-height: calc(100vh - 120px);
-    }
-    
-    header {
-        height: 50px;
-    }
-    
-    .floating-btn, .edit-mode-btn {
-        width: 40px;
-        height: 40px;
-    }
-}
-
-/* タッチデバイス用の調整 */
-@media (hover: none) and (pointer: coarse) {
-    /* ホバーエフェクトを無効化 */
-    .link-card:hover, .btn:hover, .icon-btn:hover {
-        transform: none;
-    }
-    
-    /* タップ領域を大きく */
-    .icon-btn, .position-btn {
-        min-width: 44px;
-        min-height: 44px;
-    }
-    
-    /* スクロールバーを非表示 */
-    ::-webkit-scrollbar {
-        display: none;
-    }
-}
-
-/* ノッチ対応 */
-@supports (padding: max(0px)) {
+/* Chrome特有の修正 */
+@supports (-webkit-appearance: none) and (not (-webkit-touch-callout: none)) {
     .container {
-        padding-left: max(0.5rem, env(safe-area-inset-left));
-        padding-right: max(0.5rem, env(safe-area-inset-right));
-    }
-    
-    .modal {
-        margin-left: max(1rem, env(safe-area-inset-left));
-        margin-right: max(1rem, env(safe-area-inset-right));
+        height: 100vh;
     }
 }
 
+/* Chrome モバイルブラウザ対応 */
+@media screen and (max-width: 768px) {
+    .container {
+        height: 100vh;
+        height: calc(var(--vh, 1vh) * 100);
+    }
+    
+    .content {
+        height: calc(100vh - 80px);
+        height: calc(calc(var(--vh, 1vh) * 100) - 80px);
+    }
+    
+    /* リンクカードの最適化 */
+    .link-card {
+        margin: 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    /* オーバーフロー対策 */
+    * {
+        box-sizing: border-box;
+    }
+}
     </style>
 </head>
 <body>
@@ -5312,6 +5153,36 @@ if (isTouchDevice) {
 // iOSのバウンス効果を防ぐ
 document.body.addEventListener('touchmove', (e) => {
     if (!e.target.closest('.links-grid, .category-filters, .modal')) {
+        e.preventDefault();
+    }
+}, { passive: false });
+
+// Chrome のアドレスバー対応
+let vh = window.innerHeight * 0.01;
+document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+window.addEventListener('resize', () => {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+});
+
+// iOS Chromeのバウンス効果を防ぐ
+if (/CriOS/.test(navigator.userAgent)) {
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
+}
+
+// タッチスクロールの最適化
+let touchStartY = 0;
+document.addEventListener('touchstart', (e) => {
+    touchStartY = e.touches[0].clientY;
+}, { passive: true });
+
+document.addEventListener('touchmove', (e) => {
+    const touchY = e.touches[0].clientY;
+    const scrollElement = e.target.closest('.links-grid, .modal');
+    
+    if (!scrollElement) {
         e.preventDefault();
     }
 }, { passive: false });
