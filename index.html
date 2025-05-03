@@ -1934,22 +1934,81 @@ h1 {
 /* 横向き対応 */
 @media (max-width: 768px) and (orientation: landscape) {
     .content {
-        top: 50px;
+        max-height: calc(100vh - 50px);
+    }
+    
+    .links-grid {
+        grid-template-columns: repeat(2, 1fr);
+        max-height: calc(100vh - 120px);
     }
     
     header {
         height: 50px;
     }
     
-    .links-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .floating-btn, .edit-mode-btn {
+        width: 40px;
+        height: 40px;
     }
     
-    .modal {
-        max-height: 80vh;
+    /* 横向きでも時計とボタンのスタイルを適用 */
+    .clock-container {
+        position: fixed !important;
+        top: 5px !important;
+        left: 10px !important;
+        z-index: 1001;
+    }
+    
+    .current-time {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.85rem;
+    }
+    
+    .date-time-container {
+        line-height: 1.1;
+    }
+    
+    .date-display {
+        font-size: 0.75rem;
+    }
+    
+    .time-display {
+        font-size: 0.85rem;
+    }
+    
+    .current-time svg {
+        width: 16px;
+        height: 16px;
+    }
+    
+    /* 設定ボタンの位置調整 */
+    .theme-toggle {
+        position: fixed !important;
+        top: 5px !important;
+        right: 10px !important;
+        width: 36px;
+        height: 36px;
+        z-index: 1001;
+    }
+    
+    .theme-settings-btn {
+        position: fixed !important;
+        top: 5px !important;
+        right: 56px !important;
+        width: 36px;
+        height: 36px;
+        z-index: 1001;
+    }
+    
+    /* 検索バーは時計とボタンの下に表示 */
+    .controls {
+        margin-top: 50px;
+    }
+    
+    .search-container {
+        margin-top: 10px;
     }
 }
-
 /* iOS特有の問題対応 */
 @supports (-webkit-touch-callout: none) {
     .container {
