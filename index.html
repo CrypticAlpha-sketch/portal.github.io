@@ -1781,16 +1781,17 @@ h1 {
     }
     
     .search-container {
-        max-width: 100%;
+        max-width: 100%;  /* 画面の幅に合わせる */
+        padding: 0 15px;  /* 左右に少し余白を追加 */
     }
     
     .search-input {
-        padding: 0.8rem 0.8rem 0.8rem 2.5rem;
-        font-size: 16px; /* iOSの自動ズームを防ぐ */
+        width: 100%;     /* 親要素の幅いっぱいに */
+        padding: 0.8rem 2.5rem 0.8rem 2.5rem;  /* パディングを調整 */
     }
     
     .search-icon {
-        left: 0.8rem;
+        left: 15px;      /* アイコンの位置も調整 */
     }
     
     /* カテゴリーフィルター */
