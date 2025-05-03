@@ -7,21 +7,21 @@
     <style>
 /* システムフォントスタックを使用 */
 :root {
-    --glass-bg: rgba(255, 255, 255, 0.1);
-    --glass-border: rgba(255, 255, 255, 0.2);
-    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
-    --text-color: rgba(255, 255, 255, 0.9);
-    --text-light: rgba(255, 255, 255, 0.65);
-    --primary: #6366f1;
-    --danger: #ef4444;
-    --warning: #f59e0b;
-    --success: #10b981;
+    --glass-bg: rgba(245, 245, 245, 0.15);
+    --glass-border: rgba(240, 240, 240, 0.2);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    --text-color: rgba(240, 240, 240, 0.9);
+    --text-light: rgba(230, 230, 230, 0.7);
+    --primary: #5b5fc7;
+    --danger: #d44444;
+    --warning: #d68f0b;
+    --success: #0e9b75;
     --blur-strength: 10px;
     --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    --bg-gradient-1: #6b46b3;
-    --bg-gradient-2: #9959c8;
-    --bg-gradient-3: #a76ec8;
-    --card-opacity: 0.1;
+    --bg-gradient-1: #5a3d99;
+    --bg-gradient-2: #8b6aa8;
+    --bg-gradient-3: #9679a8;
+    --card-opacity: 0.15;
     --animation-speed: 15s;
     --font-size: medium;
 }
@@ -3048,10 +3048,10 @@ const defaultGroups = [];
 // デフォルトテーマ設定
 const defaultThemeSettings = {
     mode: 'auto',
-    primaryColor: '#6366f1',
-    bgGradient1: '#6b46b3',
-    bgGradient2: '#a76ec8',
-    textColor: '#ffffff',
+    primaryColor: '#5b5fc7',
+    bgGradient1: '#5a3d99',
+    bgGradient2: '#8b6aa8',
+    textColor: '#f0f0f0',
     blurStrength: 10,
     cardOpacity: 1,
     animationSpeed: 10,
@@ -3062,57 +3062,57 @@ const defaultThemeSettings = {
 const themePresets = {
     default: {
         mode: 'auto',
-        primaryColor: '#6366f1',
-        bgGradient1: '#6b46b3',
-        bgGradient2: '#a76ec8',
-        textColor: '#ffffff',
+        primaryColor: '#5b5fc7',  // より暗めの紫
+        bgGradient1: '#5a3d99',   // 暗い紫
+        bgGradient2: '#8b6aa8',   // 暗めの紫
+        textColor: '#f0f0f0',     // 純白ではなく薄いグレー
         blurStrength: 10,
-        cardOpacity: 1,
+        cardOpacity: 1,           // カードをより透明に
         animationSpeed: 10,
         fontSize: 'medium'
     },
     ocean: {
         mode: 'auto',
-        primaryColor: '#06b6d4',
-        bgGradient1: '#0c4a6e',
-        bgGradient2: '#0891b2',
-        textColor: '#f0f9ff',
+        primaryColor: '#0596b3',  // より暗いシアン
+        bgGradient1: '#0a3854',   // 暗い青
+        bgGradient2: '#077394',   // 暗いシアン
+        textColor: '#e6f4f7',     // 薄い青みがかったグレー
         blurStrength: 12,
-        cardOpacity: 2,
-        animationSpeed: 8,
+        cardOpacity: 1,           // より透明
+        animationSpeed: 10,
         fontSize: 'medium'
     },
     sunset: {
         mode: 'auto',
-        primaryColor: '#f97316',
-        bgGradient1: '#7c2d12',
-        bgGradient2: '#fdba74',
-        textColor: '#fff7ed',
+        primaryColor: '#d66012',  // より暗いオレンジ
+        bgGradient1: '#642510',   // 暗い茶色
+        bgGradient2: '#bb7130',   // 暗めのオレンジ
+        textColor: '#f5ede4',     // 薄いベージュ
         blurStrength: 8,
-        cardOpacity: 1,
-        animationSpeed: 12,
+        cardOpacity: 1,           // より透明
+        animationSpeed: 10,
         fontSize: 'medium'
     },
     forest: {
         mode: 'auto',
-        primaryColor: '#16a34a',
-        bgGradient1: '#14532d',
-        bgGradient2: '#4ade80',
-        textColor: '#f0fdf4',
+        primaryColor: '#128a3d',  // より暗い緑
+        bgGradient1: '#0f3d21',   // 暗い深緑
+        bgGradient2: '#167e40',   // 暗めの緑
+        textColor: '#e8f4ec',     // 薄い緑がかったグレー
         blurStrength: 8,
-        cardOpacity: 1,
-        animationSpeed: 15,
+        cardOpacity: 1,           // より透明
+        animationSpeed: 10,
         fontSize: 'medium'
     },
     minimal: {
         mode: 'auto',
-        primaryColor: '#525252',
-        bgGradient1: '#18181b',
-        bgGradient2: '#3f3f46',
-        textColor: '#f5f5f5',
+        primaryColor: '#404040',  // より暗いグレー
+        bgGradient1: '#141417',   // 非常に暗いグレー
+        bgGradient2: '#33333a',   // 暗いグレー
+        textColor: '#e0e0e0',     // ライトグレー
         blurStrength: 5,
-        cardOpacity: 3,
-        animationSpeed: 5,
+        cardOpacity: 1,           // さらに透明
+        animationSpeed: 10,
         fontSize: 'medium'
     }
 };
